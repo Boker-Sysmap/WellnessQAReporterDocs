@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Processo de Releases Quinzenais</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+    <div id="content">
+      <h1>Processo de Releases Quinzenais</h1>
+      <div class="section-block">
+        <p>
+          Esta página descreve o processo oficial das releases quinzenais e as
+          atividades obrigatórias no Qase para garantir que o WellnessQAReporter
+          consiga interpretar corretamente o ciclo, calcular KPIs e gerar
+          relatórios consistentes.
+        </p>
+        <h2>Objetivo:</h2>
+        <p>
+          Padronizar o fluxo de trabalho das releases, eliminando divergências
+          entre equipes e garantindo que as execuções e os dados no Qase
+          reflitam exatamente o estado da qualidade do produto.
+        </p>
+        <h2>1. Estrutura do Ciclo Quinzenal</h2>
+        <p>Cada release segue um ciclo de 15 dias, contendo:</p>
+        <ul>
+          <li>preparação do escopo</li>
+          <li>revisão de suites e cases</li>
+          <li>criação dos plans</li>
+          <li>criação das runs</li>
+          <li>execução completa</li>
+          <li>registro de defeitos</li>
+          <li>fechamento e validação final</li>
+        </ul>
+        <p>Cada etapa é essencial para a integridade dos dados.</p>
+        <h2>2. Antes da Release (Preparação)</h2>
+        <p>
+          As seguintes ações devem ser concluídas antes do início oficial da
+          execução:
+        </p>
+        <h3>2.1 Revisão das Suites</h3>
+        <p>• remover funcionalidades obsoletas</p>
+        <p>• atualizar passos e resultados esperados</p>
+        <p>• garantir que casos tenham tags de plataforma e idioma</p>
+        <p>2.2 Definição do Escopo</p>
+        <p>• validar com PO ou líder do QA o que será testado</p>
+        <p>• incluir novas funcionalidades</p>
+        <p>2.3 Criação do Plan</p>
+        <p>
+          • criar um Plan por plataforma ou um plan geral (dependendo do
+          projeto)
+        </p>
+        <p>• adicionar todas as suites relacionadas</p>
+        <p>Erro proibido:</p>
+        <p>❌ começar a executar testes sem o Plan criado</p>
+        <p>3. Durante a Release (Execução)</p>
+        <p>
+          A execução deve seguir normas que garantem rastreabilidade e
+          qualidade:
+        </p>
+        <p>3.1 Criação das Runs</p>
+        <p>• criar run nova para iOS</p>
+        <p>• criar run nova para Android</p>
+        <p>• seguir padrão de nomenclatura</p>
+        <p>• nunca reaproveitar runs antigas</p>
+        <p>3.2 Execução dos Casos</p>
+        <p>• executar todos os casos</p>
+        <p>• seguir passos descritos nos cases</p>
+        <p>• registrar status (Passed/Failed/Blocked/Skipped)</p>
+        <p>• anexar evidências quando necessário</p>
+        <p>3.3 Registro de Defeitos</p>
+        <p>• abrir defeito para cada Failed</p>
+        <p>• vincular defeito ao resultado</p>
+        <p>• preencher descrição completa</p>
+        <p>3.4 Monitoramento Diário</p>
+        <p>• revisar progresso das runs</p>
+        <p>• garantir que não há casos pendentes</p>
+        <p>• validar se defeitos estão completos</p>
+        <p>4. Após a Release (Fechamento)</p>
+        <p>
+          O fechamento garante que todos os dados necessários foram registrados.
+        </p>
+        <p>Checklist obrigatório:</p>
+        <p>• Runs 100% completas</p>
+        <p>• Todos os casos com status</p>
+        <p>• Todos os Failed possuem defeito vinculado</p>
+        <p>• Blocked e Skipped possuem justificativa</p>
+        <p>• Severidades dos defeitos revisadas</p>
+        <p>• Duplicidades removidas</p>
+        <p>• Plan finalizado corretamente</p>
+        <p>Somente após este processo o Reporter deve ser executado.</p>
+        <p>5. Boas Práticas do Ciclo Quinzenal</p>
+        <p>• Criar o Plan no primeiro dia da release</p>
+        <p>• Criar as runs antes de começar a execução</p>
+        <p>• Registrar defeitos no mesmo dia da falha</p>
+        <p>• Atualizar suites quando funcionalidades mudarem</p>
+        <p>• Fazer revisões rápidas diárias das runs</p>
+        <p>• Validar status antes de encerrar a execução</p>
+        <p>6. Erros Comuns (e proibidos)</p>
+        <p>Esses erros prejudicam diretamente o Reporter:</p>
+        <p>❌ Executar sem revisar suites</p>
+        <p>❌ Esquecer de adicionar suites ao Plan</p>
+        <p>❌ Deixar casos sem status</p>
+        <p>❌ Executar sem registrar evidências</p>
+        <p>❌ Criar runs incompletas e abandoná-las</p>
+        <p>❌ Abrir defeitos sem vínculo</p>
+        <p>❌ Reaproveitar Plans ou Runs</p>
+        <p>7. Impacto no WellnessQAReporter</p>
+        <p>O ciclo quinzenal impacta:</p>
+        <p>• KPIs de escopo</p>
+        <p>• KPIs de cobertura</p>
+        <p>• KPIs de execução</p>
+        <p>• KPIs de falhas</p>
+        <p>• Severidade dos defeitos</p>
+        <p>• Tendência de qualidade por release</p>
+        <p>• Comparação entre plataformas</p>
+        <p>
+          Se o processo for seguido corretamente, o Reporter entregará
+          informações precisas e executivas.
+        </p>
+        <p>Conclusão:</p>
+        <p>
+          Seguir o processo quinzenal garante organização, previsibilidade e
+          clareza.
+        </p>
+        <p>
+          É o pilar fundamental para que o WellnessQAReporter gere relatórios
+          confiáveis e úteis para as áreas de QA, PO e gestão.
+        </p>
+      </div>
+      <p><a href="index.html">⬅ Voltar ao índice</a></p>
+    </div>
+  </body>
+</html>

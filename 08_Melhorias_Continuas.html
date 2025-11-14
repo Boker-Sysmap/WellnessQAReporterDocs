@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Melhorias Contínuas</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+    <div id="content">
+      <h1>Melhorias Contínuas</h1>
+      <div class="section-block">
+        <p>9 - Melhorias Contínuas</p>
+        <p>
+          Esta página define as práticas de melhoria contínua necessárias para
+          garantir que o processo de QA,
+        </p>
+        <p>
+          a utilização do Qase e os dados enviados ao WellnessQAReporter evoluam
+          de forma consistente ao longo das releases.
+        </p>
+        <p>Objetivo:</p>
+        <p>
+          Criar uma cultura de aperfeiçoamento constante, garantindo que o
+          processo não se degrade com o tempo,
+        </p>
+        <p>
+          mantendo a disciplina e elevando a maturidade do time de QA em todos
+          os projetos.
+        </p>
+        <p>1. Por que Melhorias Contínuas são Necessárias?</p>
+        <p>Mesmo com processos definidos, é comum que:</p>
+        <p>• boas práticas se percam ao longo do tempo</p>
+        <p>• novas pessoas entrem sem o treinamento adequado</p>
+        <p>• detalhes de processos sejam esquecidos</p>
+        <p>• padrões deixem de ser seguidos</p>
+        <p>• pressões de prazo comprometam a qualidade do registro de dados</p>
+        <p>Somente com revisões recorrentes o processo se mantém saudável.</p>
+        <p>2. Auditorias Periódicas no Qase</p>
+        <p>Recomenda-se auditorias nas seguintes áreas:</p>
+        <p>• Suites desatualizadas</p>
+        <p>• Cases sem tags de plataforma e idioma</p>
+        <p>• Runs incompletas</p>
+        <p>• Casos sem status</p>
+        <p>• Defeitos sem vínculo</p>
+        <p>• Defeitos duplicados</p>
+        <p>• Erros de nomenclatura</p>
+        <p>• Plans incompletos</p>
+        <p>As auditorias devem ocorrer ao menos uma vez por mês.</p>
+        <p>3. Análise de Métricas de Qualidade</p>
+        <p>
+          Os relatórios do WellnessQAReporter devem ser usados para identificar:
+        </p>
+        <p>• aumento de falhas recorrentes</p>
+        <p>• módulos mais problemáticos</p>
+        <p>• baixa cobertura de teste</p>
+        <p>• inconsistência entre plataformas</p>
+        <p>• defeitos reincidentes</p>
+        <p>• regressões constantes</p>
+        <p>Esses pontos devem gerar ações de melhoria.</p>
+        <p>4. Reuniões de Retrospectiva de QA</p>
+        <p>Ao final de cada release quinzenal, recomenda-se:</p>
+        <p>• discutir erros cometidos na utilização do Qase</p>
+        <p>• identificar lacunas no processo</p>
+        <p>• revisar qualidade dos registros</p>
+        <p>• analisar tendências de defeitos</p>
+        <p>• propor ações concretas de melhoria</p>
+        <p>
+          Essas reuniões não substituem a retrospectiva geral da squad — elas
+          são focadas exclusivamente no processo de QA.
+        </p>
+        <p>5. Evolução das Suites e Cases</p>
+        <p>Para garantir maturidade:</p>
+        <p>• revisar cases de cenários de uso reais</p>
+        <p>• atualizar casos de teste quando funcionalidades mudarem</p>
+        <p>• remover testes redundantes</p>
+        <p>• adicionar novos casos quando surgirem novos fluxos</p>
+        <p>• revisar clareza e completude dos passos</p>
+        <p>Suites estáticas geram KPIs falsos e mascaram problemas.</p>
+        <p>6. Melhoria do Registro de Defeitos</p>
+        <p>A cada ciclo, revisar:</p>
+        <p>• severidade aplicada</p>
+        <p>• clareza dos passos</p>
+        <p>• qualidade das evidências</p>
+        <p>• padrões de descrição</p>
+        <p>• duplicidades</p>
+        <p>• categorias funcionais</p>
+        <p>Boa governança gera relatórios mais precisos.</p>
+        <p>7. Atualização de Treinamentos</p>
+        <p>Sempre que houver mudanças no processo:</p>
+        <p>• atualizar documentos</p>
+        <p>• atualizar esta documentação no Confluence</p>
+        <p>• revisar vídeos e materiais</p>
+        <p>• treinar novos colaboradores</p>
+        <p>• reforçar padrões com os analistas</p>
+        <p>A cada trimestre, recomenda-se um treinamento de reforço.</p>
+        <p>8. Monitoramento da Aderência ao Processo</p>
+        <p>O líder de QA deve acompanhar:</p>
+        <p>• índice de runs 100% completas</p>
+        <p>• percentual de defeitos com vínculo</p>
+        <p>• taxa de casos sem status</p>
+        <p>• quantidade de bloqueios justificáveis</p>
+        <p>• maturidade da descrição dos defeitos</p>
+        <p>
+          Indicadores ruins apontam falhas de processo, não apenas falhas
+          técnicas.
+        </p>
+        <p>9. Registro de Lições Aprendidas</p>
+        <p>Manter um histórico com:</p>
+        <p>• o que funcionou bem</p>
+        <p>• o que precisa melhorar</p>
+        <p>• padrões que precisam ser reforçados</p>
+        <p>• práticas que devem ser excluídas</p>
+        <p>• riscos identificados</p>
+        <p>Isso ajuda a evolução da equipe e garante consistência.</p>
+        <p>Conclusão:</p>
+        <p>
+          A melhoria contínua garante que o processo de QA permaneça saudável,
+          disciplinado e maduro.
+        </p>
+        <p>
+          É um ciclo permanente, que fortalece a qualidade dos dados no Qase e
+          eleva a confiança nas análises
+        </p>
+        <p>geradas pelo WellnessQAReporter.</p>
+      </div>
+      <p><a href="index.html">⬅ Voltar ao índice</a></p>
+    </div>
+  </body>
+</html>

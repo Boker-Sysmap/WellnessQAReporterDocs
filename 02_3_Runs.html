@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test Runs</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+    <div id="content">
+      <h1>Test Runs</h1>
+      <div class="section-block">
+        <p>
+          Esta página define como as Test Runs (Execuções de Teste) devem ser
+          criadas e utilizadas no Qase para garantir que o WellnessQAReporter
+          consiga interpretar corretamente o progresso da release, calcular
+          cobertura real e relacionar resultados aos defeitos.
+        </p>
+        <h2>Objetivo:</h2>
+        <p>
+          Estabelecer regras claras e obrigatórias para criação e uso das Test
+          Runs, evitando falhas que impactam diretamente os KPIs e a
+          rastreabilidade das execuções.
+        </p>
+        <h2>1. O que é uma Test Run?</h2>
+        <p>
+          A Test Run é a execução prática de um Test Plan.<br />
+          Ela registra:
+        </p>
+        <ul>
+          <li>quem executou</li>
+          <li>quando executou</li>
+          <li>qual caso foi aprovado ou falhou</li>
+          <li>quais defeitos foram identificados</li>
+        </ul>
+        <h3>Por que isso importa?</h3>
+        <p>O Reporter utiliza as Test Runs para gerar:</p>
+        <ul>
+          <li>porcentagem de execução</li>
+          <li>taxa de sucesso e falha</li>
+          <li>métricas reais de cobertura</li>
+          <li>defeitos associados aos casos</li>
+        </ul>
+        <h2>2. Uma Test Run por Plataforma</h2>
+        <p>Para cada release, devem ser criados:</p>
+        <ul>
+          <li>1 Test Run para iOS</li>
+          <li>1 Test Run para Android</li>
+        </ul>
+        <p>
+          Nunca misture execuções das duas plataformas em uma única Test Run.
+        </p>
+        <h2>3. Nomenclatura Oficial</h2>
+        <p>A Test Run deve seguir o padrão:</p>
+        <p><i>Test Run – Release YYYY-MM – Plataforma</i></p>
+        <p>Exemplos:</p>
+        <ul>
+          <li>Run – Release 2025-03 – iOS</li>
+          <li>Run – Release 2025-03 – Android</li>
+        </ul>
+        <h3>Por que isso importa?</h3>
+        <p>
+          O WellnessQAReporter utiliza esse padrão para identificar
+          corretamente:
+        </p>
+        <ul>
+          <li>qual plataforma pertence a cada execução</li>
+          <li>distribuição dos KPIs por iOS x Android</li>
+        </ul>
+        <h2>4. Regras obrigatórias da Run</h2>
+        <p>Toda run deve:</p>
+        <ul>
+          <li>ser criada a partir de um Test Plan</li>
+          <li>ser nova (nunca reaproveitada)</li>
+          <li>estar associada à release correta</li>
+          <li>ter responsável (executor) definido</li>
+          <li>ter data real de execução</li>
+          <li>registrar resultados de todos os Test Cases</li>
+        </ul>
+        <h2>5. Erros proibidos</h2>
+        <p>Os erros abaixo comprometem totalmente os KPIs:</p>
+        <ul>
+          <li>❌ Reaproveitar uma run antiga</li>
+          <li>❌ Criar a run diretamente sem um plan</li>
+          <li>❌ Deixar casos sem status</li>
+          <li>❌ Misturar plataformas na mesma run</li>
+          <li>❌ Criar run após finalizado o ciclo</li>
+          <li>❌ Executar apenas parte dos casos e abandonar a run</li>
+          <li>❌ Repetir a mesma run com nome diferente</li>
+        </ul>
+        <h2>6. Execução Correta</h2>
+        <p>Para garantir execução correta, o QA deve:</p>
+        <ul>
+          <li>iniciar execução com ambiente estável</li>
+          <li>seguir os passos descritos no case</li>
+          <li>registrar evidências sempre que necessário</li>
+          <li>classificar corretamente o resultado</li>
+          <li>registrar defeitos para qualquer falha</li>
+          <li>revisar execução antes de encerrar a Test Run</li>
+        </ul>
+        <h2>7. Fechamento da Test Run</h2>
+        <p>Uma Test Run só pode ser considerada válida quando:</p>
+        <ul>
+          <li>100% dos casos têm status</li>
+          <li>Todos os defeitos foram registrados</li>
+          <li>Não há casos pendentes sem justificativa</li>
+          <li>O QA líder revisou e aprovou a execução</li>
+        </ul>
+        <h2>8. Impacto nos KPIs</h2>
+        <p>A forma como a Test Run é executada afeta diretamente:</p>
+        <ul>
+          <li>KPIs de Escopo</li>
+          <li>Total de casos planejados vs executados</li>
+          <li>KPIs de Qualidade</li>
+          <li>Percentual de Passed / Failed / Blocked / Skipped</li>
+          <li>KPIs de Defeitos</li>
+          <li>Falhas mapeadas por funcionalidade</li>
+          <li>Severidade</li>
+          <li>Plataforma afetada</li>
+        </ul>
+        <h2>9. Boas Práticas</h2>
+        <p>Revisar Test Runs diariamente durante o ciclo.</p>
+        <p>Registrar comentários claros em cada caso não aprovado.</p>
+        <p>Anexar evidências objetivas.</p>
+        <p>Encerrar Test Run apenas após revisão da equipe.</p>
+        <p>Criar Test Runs com antecedência, antes da execução começar.</p>
+        <h2>Conclusão:</h2>
+        <p>AS Test Runs são um dos pilares principais do WellnessQAReporter.</p>
+        <p>
+          Quando bem executados, garantem KPIs confiáveis, rastreabilidade
+          completa e visibilidade real da qualidade da release.
+        </p>
+        <p>O uso padronizado é obrigatório para todos os QAs envolvidos.</p>
+      </div>
+      <p><a href="index.html">⬅ Voltar ao índice</a></p>
+    </div>
+  </body>
+</html>

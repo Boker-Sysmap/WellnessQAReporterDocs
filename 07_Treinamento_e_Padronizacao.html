@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Treinamento e Padronização</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+    <div id="content">
+      <h1>Treinamento e Padronização</h1>
+      <div class="section-block">
+        <p>8 - Treinamento e Padronização</p>
+        <p>
+          Esta página define as diretrizes de treinamento e padronização
+          necessárias para garantir que todas as equipes de QA
+        </p>
+        <p>
+          adotem de forma consistente as práticas obrigatórias do Qase e sigam o
+          processo que permite ao WellnessQAReporter
+        </p>
+        <p>gerar dados confiáveis.</p>
+        <p>Objetivo:</p>
+        <p>
+          Padronizar comportamentos, reduzir variações entre analistas, criar
+          alinhamento entre projetos (Fully e Chubb)
+        </p>
+        <p>e garantir maturidade contínua no uso do Qase.</p>
+        <p>1. Necessidade de Treinamento Contínuo</p>
+        <p>
+          A ferramenta Qase é flexível — por isso, sem normas claras, cada
+          analista pode utilizá-la de uma forma diferente.
+        </p>
+        <p>Essa variação causa:</p>
+        <p>• divergência de dados</p>
+        <p>• inconsistência nas runs</p>
+        <p>• erros no registro de resultados</p>
+        <p>• defeitos incompletos ou sem vínculo</p>
+        <p>• KPIs distorcidos</p>
+        <p>Treinamentos periódicos garantem disciplina e uniformidade.</p>
+        <p>2. Quem Deve Ser Treinado</p>
+        <p>Todos os envolvidos no ciclo de QA:</p>
+        <p>• Analistas de QA</p>
+        <p>• Líderes de QA</p>
+        <p>• Desenvolvedores que auxiliam em validações</p>
+        <p>• POs interessados no processo</p>
+        <p>• Novos colaboradores</p>
+        <p>
+          O treinamento é obrigatório para qualquer pessoa que execute testes ou
+          registre defeitos no Qase.
+        </p>
+        <p>3. Conteúdo Obrigatório do Treinamento</p>
+        <p>O treinamento deve incluir, no mínimo:</p>
+        <p>3.1 Como organizar suites e cases</p>
+        <p>• Nomeação</p>
+        <p>• Estrutura funcional</p>
+        <p>• Tags de plataforma e idioma</p>
+        <p>• Atualização dos casos</p>
+        <p>3.2 Como criar Plans por release</p>
+        <p>• Frequência quinzenal</p>
+        <p>• Escopo completo</p>
+        <p>• Inclusão das suites</p>
+        <p>3.3 Como criar e executar Runs</p>
+        <p>• Nomeação oficial</p>
+        <p>• Não reaproveitar runs</p>
+        <p>• 100% dos casos com status</p>
+        <p>3.4 Registro correto de resultados</p>
+        <p>• Diferença entre Passed, Failed, Blocked e Skipped</p>
+        <p>• Evidências obrigatórias</p>
+        <p>• Comentários objetivos</p>
+        <p>3.5 Governança de defeitos</p>
+        <p>• Quando abrir defeito</p>
+        <p>• Severidade</p>
+        <p>• Requisitos obrigatórios da descrição</p>
+        <p>• Vínculo com resultados</p>
+        <p>4. Métodos de Treinamento Recomendados</p>
+        <p>Os seguintes formatos podem ser utilizados:</p>
+        <p>• Sessões mensais ao vivo (online ou presenciais)</p>
+        <p>• Gravações de vídeo demonstrando cada etapa</p>
+        <p>• Materiais PDF e DOC de referência</p>
+        <p>• Exemplos reais de boas e más práticas</p>
+        <p>• Auditorias internas para reforço</p>
+        <p>• Revisão semanal do uso do Qase</p>
+        <p>5. Padronização Entre Projetos (Fully e Chubb)</p>
+        <p>
+          Apesar de diferenças naturais entre os produtos, a padronização deve
+          ser absoluta no Qase:
+        </p>
+        <p>• mesma estrutura de suites</p>
+        <p>• mesmo padrão de cases</p>
+        <p>• releases quinzenais alinhadas</p>
+        <p>• runs estruturadas da mesma forma</p>
+        <p>• nomenclatura idêntica</p>
+        <p>• registro uniforme de defeitos</p>
+        <p>Isso garante KPIs comparáveis entre os projetos.</p>
+        <p>6. Checklist de Padronização Operacional</p>
+        <p>Cada QA deve seguir estas práticas:</p>
+        <p>[ ] Usar sempre o padrão de nomenclatura oficial</p>
+        <p>[ ] Atualizar cases sempre que o app mudar</p>
+        <p>[ ] Nunca criar runs sem plan</p>
+        <p>[ ] Nunca reaproveitar runs antigas</p>
+        <p>[ ] Registrar todos os resultados</p>
+        <p>[ ] Abrir defeitos imediatamente</p>
+        <p>[ ] Associar defeitos ao resultado</p>
+        <p>[ ] Revisar severidade e duplicidade</p>
+        <p>[ ] Seguir checklist completo da release</p>
+        <p>7. Auditorias de Qualidade no Qase</p>
+        <p>Para garantir disciplina, recomenda-se auditorias regulares:</p>
+        <p>• Revisão quinzenal durante o fechamento da release</p>
+        <p>• Verificação de runs incompletas</p>
+        <p>• Detecção de defeitos sem vínculo</p>
+        <p>• Verificação de suites duplicadas ou desorganizadas</p>
+        <p>• Casos sem tags de plataforma ou idioma</p>
+        <p>• Casos sem passos ou pré-condições</p>
+        <p>8. Benefícios da Padronização</p>
+        <p>Quando os times são treinados e seguem o padrão:</p>
+        <p>• KPIs ficam 100% confiáveis</p>
+        <p>• Reduz-se retrabalho</p>
+        <p>• Execuções ficam mais rápidas</p>
+        <p>• Abertura de defeitos fica consistente</p>
+        <p>• Relatórios tornam-se claros para gestão</p>
+        <p>• Times crescem em maturidade</p>
+        <p>Conclusão:</p>
+        <p>
+          Treinamento e padronização são pilares essenciais para a consistência
+          do processo de QA.
+        </p>
+        <p>
+          Quando todos seguem o mesmo padrão, o WellnessQAReporter consegue
+          transformar dados do Qase
+        </p>
+        <p>em análises precisas e estratégicas para o negócio.</p>
+      </div>
+      <p><a href="index.html">⬅ Voltar ao índice</a></p>
+    </div>
+  </body>
+</html>

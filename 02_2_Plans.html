@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test Plans</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+    <div id="content">
+      <h1>Test Plans</h1>
+      <div class="section-block">
+        <p>
+          Esta página define como os Test Plans (Planos de Teste) devem ser
+          criados e estruturados no Qase para que o WellnessQAReporter consiga
+          identificar corretamente o escopo planejado e os KPIs de cada release
+          quinzenal.
+        </p>
+        <h2>Objetivo:</h2>
+        <p>
+          Padronizar completamente a criação de Test Plans, garantindo que cada
+          ciclo de release seja representado de forma correta, completa e
+          consistente.
+        </p>
+        <h2>1. O que é um Test Plan?</h2>
+        <p>
+          O Test Plan é o artefato do Qase que define o escopo planejado da
+          release.
+        </p>
+        <p>
+          Ele contém as suites (funcionalidades) que serão testadas durante o
+          ciclo e serve como base para todas as execuções (runs).
+        </p>
+        <h3>Por que isso é importante?</h3>
+        <ul>
+          <li>
+            O Reporter usa o Test Plan para calcular KPIs de escopo e cobertura.
+          </li>
+          <li>O Test Plan representa o que deveria ser testado na release.</li>
+          <li>Sem Test Plan, não há como medir percentual de execução.</li>
+        </ul>
+        <h2>2. Frequência dos Test Plans</h2>
+        <p>
+          É obrigatório criar um Test Plan para <b>cada release quinzenal</b>,
+          sem exceções.
+        </p>
+        <p>Nunca reutilize um Test Plan antigo.</p>
+        <p>Cada ciclo deve ter seu próprio artefato, pois:</p>
+        <ul>
+          <li>o escopo muda</li>
+          <li>funcionalidades entram e saem</li>
+          <li>regressões precisam ser revistas</li>
+          <li>o Reporter identifica KPIs por release</li>
+        </ul>
+        <h2>3. Nomenclatura Oficial</h2>
+        <p>A nomeação deve seguir o padrão:</p>
+        <p><i>Release YYYY-MM – Plataforma</i></p>
+        <h3>Exemplos:</h3>
+        <ul>
+          <li>• Release 2025-03 – iOS</li>
+          <li>• Release 2025-03 – Android</li>
+        </ul>
+        <p>
+          Para projetos que utilizam o mesmo escopo nas duas plataformas,
+          pode-se usar:
+        </p>
+        <ul>
+          <li>Release 2025-03 – Geral</li>
+        </ul>
+        <h2>4. Conteúdo Obrigatório de um Test Plan</h2>
+        <p>Ao criar um test plan, ele deve conter:</p>
+        <ul>
+          <li>Todas as suites relacionadas à release.</li>
+          <li>Suites revisadas e atualizadas.</li>
+          <li>Funcionalidades novas adicionadas.</li>
+          <li>Funcionalidades removidas do ciclo quando necessário.</li>
+          <li>Descrição do objetivo da release (opcional, mas recomendado).</li>
+        </ul>
+        <h3>Por que isso importa?</h3>
+        <p>O WellnessQAReporter lê diretamente os Test Plans para:</p>
+        <ul>
+          <li>identificar o escopo total da release</li>
+          <li>calcular cobertura planejada x executada</li>
+        </ul>
+        <h2>5. Revisão Antes da Execução</h2>
+        <p>
+          Antes de iniciar qualquer execução, o QA responsável deve confirmar
+          que:
+        </p>
+        <ul>
+          <li>Todas as suites foram incluídas.</li>
+          <li>Não há suites obsoletas.</li>
+          <li>Não há duplicidade de suites.</li>
+          <li>Casos desatualizados foram revisados.</li>
+        </ul>
+        <h2>6. Erros Comuns (e proibidos)</h2>
+        <p>Os erros abaixo prejudicam gravemente os KPIs:</p>
+        <ul>
+          <li>❌ Test Plan reaproveitado de release anterior</li>
+          <li>❌ Suites faltando</li>
+          <li>❌ Suites duplicadas</li>
+          <li>❌ Test Plans vazios</li>
+          <li>❌ Test Plans criados após a execução já ter começado</li>
+          <li>❌ Test Plans com nome informal (ex.: “Regressão Março”)</li>
+        </ul>
+        <h2>7. Boas Práticas</h2>
+        <ul>
+          <li>Criar o Test Plan no início do ciclo de release.</li>
+          <li>Validar escopo com o PO ou líder de QA.</li>
+          <li>Arquivar Test Plans antigos para manter organização.</li>
+          <li>Criar templates de Test Plans, se necessário.</li>
+        </ul>
+        <h2>Conclusão:</h2>
+        <p>
+          Test Plans bem estruturados são essenciais para medir o escopo da
+          release e garantir que o WellnessQAReporter calcule corretamente a
+          cobertura, execução e qualidade do ciclo.
+        </p>
+        <p>
+          Seguir esse padrão é obrigatório para garantir dados consistentes.
+        </p>
+      </div>
+      <p><a href="index.html">⬅ Voltar ao índice</a></p>
+    </div>
+  </body>
+</html>

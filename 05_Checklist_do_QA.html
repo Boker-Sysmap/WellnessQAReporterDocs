@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Checklist do QA</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+    <div id="content">
+      <h1>Checklist do QA</h1>
+      <div class="section-block">
+        <p>6 - Checklist do QA</p>
+        <p>
+          Esta página apresenta o checklist oficial que todos os analistas de QA
+          devem seguir ao trabalhar
+        </p>
+        <p>
+          com o Qase durante uma release quinzenal. Ele garante padronização,
+          reduz erros operacionais
+        </p>
+        <p>
+          e assegura que o WellnessQAReporter receba dados completos e
+          consistentes.
+        </p>
+        <p>Objetivo:</p>
+        <p>
+          Criar um guia simples, direto e obrigatório que assegure conformidade
+          ao processo de QA e qualidade das informações registradas.
+        </p>
+        <p>1. Checklist Antes da Execução</p>
+        <p>Antes de iniciar qualquer run:</p>
+        <p>[ ] Suites revisadas e atualizadas</p>
+        <p>
+          [ ] Casos de teste completos (passos, pré-condições, resultado
+          esperado)
+        </p>
+        <p>[ ] Tags de plataforma aplicadas (iOS / Android)</p>
+        <p>[ ] Tags de idioma aplicadas (PT / EN / ES), quando aplicável</p>
+        <p>[ ] Plan da release criado corretamente</p>
+        <p>[ ] Todas as suites adicionadas ao Plan</p>
+        <p>[ ] Run criada para iOS</p>
+        <p>[ ] Run criada para Android</p>
+        <p>[ ] Nomenclatura correta das runs</p>
+        <p>[ ] Ambiente validado e funcional</p>
+        <p>2. Checklist Durante a Execução</p>
+        <p>Durante a execução dos casos de teste:</p>
+        <p>[ ] Seguir exatamente os passos do case</p>
+        <p>[ ] Registrar status de cada caso</p>
+        <p>[ ] Inserir comentários nos casos não aprovados</p>
+        <p>[ ] Anexar evidências (prints, vídeos) para Failed e Blocked</p>
+        <p>[ ] Abrir defeitos imediatamente ao encontrar uma falha</p>
+        <p>[ ] Garantir vínculo entre defeito e resultado da execução</p>
+        <p>[ ] Justificar Blocked e Skipped de forma clara</p>
+        <p>[ ] Atualizar severidade dos defeitos conforme impacto real</p>
+        <p>3. Checklist Após a Execução</p>
+        <p>Antes de encerrar a run:</p>
+        <p>[ ] 100% dos casos com status</p>
+        <p>[ ] Todos os Failed com defeitos vinculados</p>
+        <p>[ ] Todas as evidências anexadas</p>
+        <p>[ ] Blocked e Skipped devidamente justificados</p>
+        <p>[ ] Sem casos deixados “para depois”</p>
+        <p>[ ] Revisão completa feita pelo QA responsável</p>
+        <p>[ ] Duplicidade de defeitos verificada e corrigida</p>
+        <p>[ ] Severidades revisadas pelo QA líder</p>
+        <p>[ ] Run encerrada após validação final</p>
+        <p>4. Checklist Antes de Gerar o Relatório</p>
+        <p>Para garantir KPIs corretos:</p>
+        <p>[ ] Plan completo e atualizado</p>
+        <p>[ ] Runs concluídas para ambas as plataformas</p>
+        <p>[ ] Nenhum caso sem status</p>
+        <p>[ ] Nenhum defeito sem vínculo</p>
+        <p>[ ] Nenhum defeito sem descrição completa</p>
+        <p>[ ] Suites e cases consistentes com o escopo da release</p>
+        <p>5. Erros Comuns que o Checklist Evita</p>
+        <p>❌ Executar runs com cases em branco</p>
+        <p>❌ Esquecer evidências de falhas</p>
+        <p>❌ Criar runs fora do padrão</p>
+        <p>❌ Deixar defeitos sem vínculo</p>
+        <p>❌ Marcar Passed sem validar comportamento</p>
+        <p>❌ Revisões tardias que forçam retrabalho</p>
+        <p>❌ Confusão entre plataformas e idiomas</p>
+        <p>6. Benefícios do Checklist</p>
+        <p>• Padroniza a atuação dos QAs</p>
+        <p>• Reduz inconsistências entre projetos</p>
+        <p>• Melhora rastreabilidade dos dados</p>
+        <p>• Elimina erros simples que comprometem KPIs</p>
+        <p>• Aumenta confiabilidade dos relatórios executivos</p>
+        <p>• Sustenta a maturidade do processo de QA</p>
+        <p>Conclusão:</p>
+        <p>
+          O checklist é obrigatório. Ele assegura disciplina e consistência no
+          processo de QA, garantindo
+        </p>
+        <p>
+          que o WellnessQAReporter opere com dados confiáveis e gere análises
+          precisas para o time e gestão.
+        </p>
+      </div>
+      <p><a href="index.html">⬅ Voltar ao índice</a></p>
+    </div>
+  </body>
+</html>

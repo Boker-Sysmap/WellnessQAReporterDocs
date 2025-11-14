@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Material Complementar</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+    <div id="content">
+      <h1>Material Complementar</h1>
+      <div class="section-block">
+        <p>Material Complementar – WellnessQAReporter</p>
+        <p>1. Índice Consolidado</p>
+        <p>
+          Este índice apresenta a estrutura completa da documentação e deve ser
+          usado para criação de links internos no Confluence: 1. Página Inicial
+          – WellnessQAReporter 2. Por que precisamos padronizar o Qase? 3. Como
+          o Qase deve ser organizado 3.1 Suites &amp; Cases 3.2 Plans 3.3 Runs
+          3.4 Registro de Resultados 4. Governança de Defeitos 5. Processo de
+          Releases Quinzenais 6. Checklist do QA 7. Como o WellnessQAReporter
+          usa os dados 8. Treinamento e Padronização 9. Melhorias Contínuas
+        </p>
+        <p>2. Página Inicial com Links (modelo para Confluence)</p>
+        <p>
+          Use esta estrutura como página inicial no Confluence e substitua cada
+          item pelo link real após subir todos os documentos: • [[Por que
+          precisamos padronizar o Qase]] • [[Como o Qase deve ser organizado]] •
+          [[Suites &amp; Cases]] • [[Plans]] • [[Runs]] • [[Registro de
+          Resultados]] • [[Governança de Defeitos]] • [[Processo de Releases
+          Quinzenais]] • [[Checklist do QA]] • [[Como o WellnessQAReporter usa
+          os dados]] • [[Treinamento e Padronização]] • [[Melhorias Contínuas]]
+        </p>
+        <p>3. Templates Úteis</p>
+        <p>3.1 Template de Suite</p>
+        <p>
+          Nome da Suite: Funcionalidade / Módulo: Descrição: Objetivo da
+          funcionalidade. Casos incluídos: • Caso 1 • Caso 2 • Caso 3
+          Observações: – Atualizar a cada release – Evitar duplicidade
+        </p>
+        <p>3.2 Template de Case</p>
+        <p>
+          Título: Objetivo do teste claramente definido. Descrição do Cenário:
+          Breve explicação do fluxo a ser testado. Pré-condições: • Pré-condição
+          1 • Pré-condição 2 Passos: 1. Passo 1 2. Passo 2 3. Passo 3 Resultado
+          Esperado: Descrição clara do resultado correto. Tags: • Plataforma:
+          iOS / Android • Idioma: PT / EN / ES Observações: – Sempre manter
+          atualizado
+        </p>
+        <p>3.3 Template de Defeito</p>
+        <p>
+          Título: Resumo objetivo da falha. Descrição: Detalhamento do problema
+          encontrado. Passos para Reproduzir: 1. Passo 1 2. Passo 2 3. Passo 3
+          Resultado Esperado: Comportamento correto esperado. Resultado Obtido:
+          O que ocorreu de fato. Plataforma: iOS / Android Idioma: PT / EN / ES
+          Severidade: 1 – Crítica 2 – Alta 3 – Média 4 – Baixa Evidências: •
+          Print / vídeo / logs anexados Vínculo: Associar este defeito ao Result
+          da execução.
+        </p>
+        <p>3.4 Template de Revisão de Release</p>
+        <p>
+          Checklist de Fechamento da Release: [ ] Suites revisadas [ ] Plan
+          completo [ ] Runs 100% concluídas [ ] Todos os casos com status [ ]
+          Todos os Failed com defeito vinculado [ ] Defeitos revisados
+          (descrição, severidade, duplicidade) [ ] Evidências anexadas [ ]
+          Relatório gerado e validado
+        </p>
+      </div>
+      <p><a href="index.html">⬅ Voltar ao índice</a></p>
+    </div>
+  </body>
+</html>

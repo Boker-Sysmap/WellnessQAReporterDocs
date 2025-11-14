@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bem-vindo ao WellnessQAReporter</title>
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+
+    <div id="content">
+      <h1>KPIs</h1>
+
+      <div class="section-block">
+        <h2>KPIs por Release</h2>
+        <ul>
+          <li>
+            <strong
+              >Escopo – Número total de casos planejados para release</strong
+            >
+            <br />
+            <em>Descrição:</em> Quantidade total de casos de teste planejados
+            para a release.
+          </li>
+          <li>
+            <strong>Cobertura de testes</strong>
+            <br />
+            <em>Descrição:</em> Percentual de casos manuais e automatizados em
+            relação ao escopo planejado.
+          </li>
+          <li>
+            <strong
+              >Execução – Número total de casos executados por status</strong
+            >
+            <br />
+            <em>Descrição:</em> Distribuição de execuções por status (Passed,
+            Failed, Blocked, Skipped, etc.).
+          </li>
+          <li>
+            <strong>Tempo médio de execução</strong>
+            <br />
+            <em>Descrição:</em> Tempo médio de execução dos casos de teste da
+            release.
+          </li>
+          <li>
+            <strong>Estabilidade (% de falhas) – por motivo</strong>
+            <br />
+            <em>Descrição:</em> Percentual de falhas classificadas por motivo
+            (defeito, script, ambiente, dados etc.).
+          </li>
+          <li>
+            <strong
+              >Defeitos – Número total de defeitos por feature, status e
+              severidade</strong
+            >
+            <br />
+            <em>Descrição:</em> Quantidade de defeitos encontrados na release,
+            classificados por funcionalidade, status e severidade.
+          </li>
+          <li>
+            <strong>Tempo médio de resolução de defeitos</strong>
+            <br />
+            <em>Descrição:</em> Tempo médio entre a abertura e o fechamento dos
+            defeitos da release.
+          </li>
+        </ul>
+
+        <h2>KPIs para Visão Estratégica</h2>
+        <ul>
+          <li>
+            <strong>Produtividade – Número de execuções x tempo / mês</strong>
+            <br />
+            <em>Descrição:</em> Volume de execuções mensais, segmentado por tipo
+            de teste (manual e automatizado).
+          </li>
+          <li>
+            <strong>Esforço economizado</strong>
+            <br />
+            <em>Descrição:</em> Tempo total economizado com automação, com base
+            no tempo médio de execução manual.
+          </li>
+          <li>
+            <strong>Eficiência operacional – Tempo médio de entregas</strong>
+            <br />
+            <em>Descrição:</em> Tempo médio de entrega de releases (do início ao
+            fim do ciclo).
+          </li>
+          <li>
+            <strong
+              >Prevenção de falhas – Defeitos detectados antes de PRD</strong
+            >
+            <br />
+            <em>Descrição:</em> Percentual de defeitos encontrados em ambientes
+            anteriores à produção.
+          </li>
+          <li>
+            <strong>Curva de evolução – % cobertura mapeada x entregue</strong>
+            <br />
+            <em>Descrição:</em> Relação entre a cobertura de testes planejada e
+            a efetivamente executada ao longo do tempo.
+          </li>
+          <li>
+            <strong>Indicador de estabilidade – % de testes estáveis</strong>
+            <br />
+            <em>Descrição:</em> Percentual de testes considerados estáveis (sem
+            falhas intermitentes ao longo dos ciclos).
+          </li>
+        </ul>
+      </div>
+
+      <p><a href="index.html">⬅ Voltar ao índice</a></p>
+    </div>
+  </body>
+</html>

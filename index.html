@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bem-vindo ao WellnessQAReporter</title>
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+
+    <div id="content">
+      <h1>Bem-vindo ao WellnessQAReporter</h1>
+
+      <div class="section-block">
+        <p>
+          O <b>WellnessQAReporter</b> é uma iniciativa criada para aumentar a
+          visibilidade, a padronização e a qualidade dos dados de testes dentro
+          dos projetos Fully e Chubb...
+        </p>
+
+        <h2>Objetivos Principais:</h2>
+
+        <ul>
+          <li>Padronizar completamente o uso do Qase.</li>
+          <li>Aumentar a qualidade e consistência dos dados.</li>
+          <li>Garantir rastreabilidade entre casos, execuções e defeitos.</li>
+          <li>Eliminar divergências entre equipes e projetos.</li>
+          <li>Sustentar decisões executivas.</li>
+        </ul>
+
+        <h2>Por que isso é importante?</h2>
+
+        <p>
+          O WellnessQAReporter só consegue gerar KPIs confiáveis quando o Qase
+          está bem organizado...
+        </p>
+
+        <h2>Navegação desta Documentação:</h2>
+
+        <ul>
+          <li>
+            <a href="02_Como_Qase_Deve_Ser_Organizado.html"
+              >Estrutura do Qase</a
+            >
+          </li>
+          <li>
+            <a href="04_Processo_de_Releases.html">Processo de releases</a>
+          </li>
+          <li>
+            <a href="03_Governanca_de_Defeitos.html">Governança de defeitos</a>
+          </li>
+          <li><a href="05_Checklist_do_QA.html">Checklist do QA</a></li>
+          <li>
+            <a href="06_Como_Reporter_Usa_Dados.html"
+              >Como os dados são usados pelo Reporter</a
+            >
+          </li>
+          <li>
+            <a href="07_Treinamento_e_Padronizacao.html"
+              >Treinamento e boas práticas</a
+            >
+          </li>
+          <li>
+            <a href="08_Melhorias_Continuas.html">Melhorias contínuas</a>
+          </li>
+        </ul>
+
+        <p>
+          Esta página serve como ponto de partida para toda a documentação do
+          WellnessQAReporter.
+        </p>
+      </div>
+
+      <p><a href="index.html">⬅ Voltar ao índice</a></p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Por que precisamos padronizar o Qase?</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+    <div id="content">
+      <h1>Por que precisamos padronizar o Qase?</h1>
+      <div class="section-block">
+        <p>
+          A padronização do Qase é essencial para garantir que o
+          WellnessQAReporter gere relatórios consistentes, completos e
+          confiáveis.
+        </p>
+        <p>
+          Sem um uso uniforme da ferramenta, os dados ficam fragmentados,
+          incompletos ou divergentes entre projetos e equipes, o que compromete
+          a análise executiva e a tomada de decisão.
+        </p>
+        <h2>Por que isso precisa ser feito?</h2>
+        <h3>1. Inconsistências Impactam KPIs</h3>
+        <p>
+          Quando projetos diferentes utilizam estruturas distintas de Suites,
+          Cases, Plans ou Runs, o Reporter não consegue consolidar informações
+          de maneira precisa.
+        </p>
+        <p>Isso gera:</p>
+        <p></p>
+        <ul>
+          <li>KPIs incorretos</li>
+          <li>Relatórios incompletos</li>
+          <li>Falta de visibilidade real da qualidade do produto</li>
+        </ul>
+        <h3>2. Falta de Padrão Entre Equipes</h3>
+        <p>
+          Cada analista tende a organizar testes de uma forma particular. Embora
+          isso funcione para o dia a dia, impede que os dados sejam comparáveis
+          e impede que o Reporter interprete tudo de maneira uniforme.
+        </p>
+        <h3>3. Diferenças Entre Projetos (Fully e Chubb)</h3>
+        <p>Os projetos possuem:</p>
+        <ul>
+          <li>plataformas diferentes (iOS e Android)</li>
+          <li>casos multilíngues (PT/EN/ES)</li>
+          <li>escopos distintos</li>
+        </ul>
+        <p>
+          Sem padronização, os dados ficam incompatíveis e inviabilizam análises
+          globais.
+        </p>
+        <h3>4. Necessidade de Rastreabilidade Completa</h3>
+        <p>O Reporter só consegue cruzar informações se houver:</p>
+        <ul>
+          <li>Suites organizadas por funcionalidade</li>
+          <li>Casos completos e atualizados</li>
+          <li>Runs criadas corretamente</li>
+          <li>Resultados preenchidos</li>
+          <li>Defeitos sempre vinculados aos resultados das execuções</li>
+        </ul>
+        <p>Qualquer falha nesses itens prejudica a rastreabilidade.</p>
+        <h3>5. Redução de Retrabalho</h3>
+        <p>Quando os dados no Qase não seguem um padrão:</p>
+        <ul>
+          <li>analistas precisam gerar relatórios manuais</li>
+          <li>o Reporter apresenta falhas</li>
+          <li>dados precisam ser ajustados posteriormente</li>
+          <li>equipes perdem tempo corrigindo erros simples</li>
+        </ul>
+        <h3>6. Eliminação de Erros Operacionais</h3>
+        <p>Padronizar o Qase significa:</p>
+        <ul>
+          <li>menos divergências</li>
+          <li>menos dúvidas</li>
+          <li>menos exceções</li>
+          <li>menos tempo perdido revisando informação incorreta</li>
+        </ul>
+        <h2>Conclusão:</h2>
+        <p>
+          Padronizar o Qase não é apenas uma recomendação — é um pré-requisito
+          para que o WellnessQAReporter funcione.
+        </p>
+        <p>
+          A padronização garante qualidade nos dados, eficiência para os
+          analistas e clareza para os gestores.
+        </p>
+        <p>
+          Esta página explica as razões estratégicas para a organização do Qase
+          e serve como base para todas as práticas descritas nas próximas
+          seções.
+        </p>
+      </div>
+      <p><a href="index.html">⬅ Voltar ao índice</a></p>
+    </div>
+  </body>
+</html>

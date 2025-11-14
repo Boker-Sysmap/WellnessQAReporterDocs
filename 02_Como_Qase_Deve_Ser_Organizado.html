@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Como o Qase deve ser organizado</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+    <div id="content">
+      <h1>Como o Qase deve ser organizado</h1>
+      <div class="section-block">
+        <p>
+          Esta página define a estrutura oficial do Qase necessária para que o
+          WellnessQAReporter funcione corretamente.
+        </p>
+        <p>
+          Ela serve como documento-pai para as subpáginas que detalham cada
+          elemento (Suites, Cases, Plans, Runs e Resultados).
+        </p>
+        <h2>Objetivo:</h2>
+        <p>
+          Garantir que as equipes utilizem o Qase de forma padronizada,
+          consistente e alinhada entre todos os projetos (Fully e Chubb),
+          permitindo que o Reporter colete, interprete e consolide os dados de
+          maneira precisa.
+        </p>
+        <h2>Por que a organização do Qase é essencial?</h2>
+        <ul>
+          <li>Define o padrão que garante a integridade dos KPIs.</li>
+          <li>Evita divergências entre plataformas (iOS e Android).</li>
+          <li>Permite diferenciar corretamente dados por idioma (PT/EN/ES).</li>
+          <li>
+            Sustenta rastreamento entre Suite → Caso → Execução → Resultado →
+            Defeito.
+          </li>
+          <li>Reduz retrabalho e melhora a governança do QA.</li>
+        </ul>
+        <h2>Estrutura Oficial do Qase:</h2>
+        <p>A organização deve seguir quatro pilares principais:</p>
+        <h3>1. Suites organizadas por funcionalidade</h3>
+        <p>
+          Cada suite representa uma área funcional do aplicativo. Isso permite:
+        </p>
+        <ul>
+          <li>Relatórios por módulo</li>
+          <li>Análise de impacto por funcionalidade</li>
+          <li>Agrupamento correto dos casos no Reporter</li>
+        </ul>
+        <h3>2. Casos de teste completos e atualizados</h3>
+        <p>Cada caso deve conter:</p>
+        <ul>
+          <li>título padronizado</li>
+          <li>descrição clara</li>
+          <li>pré-condições</li>
+          <li>passos detalhados</li>
+          <li>resultado esperado</li>
+          <li>tags de plataforma (iOS/Android)</li>
+          <li>tags de idioma (PT/EN/ES), quando aplicável</li>
+        </ul>
+        <h3>3. Plans por Release Quinzenal</h3>
+        <p>
+          Cada ciclo de release deve ter um plan dedicado, contendo todas as
+          suites relevantes.
+        </p>
+        <p>
+          Nomes devem seguir padrão claro para facilitar a leitura pelo
+          Reporter.
+        </p>
+        <h3>4. Runs novas e completas</h3>
+        <p>
+          Toda execução deve gerar uma run nova por plataforma, nunca
+          reaproveitada.
+        </p>
+        <p>
+          Execuções incompletas ou sem resultados comprometem diretamente os
+          KPIs.
+        </p>
+        <p>Subpáginas Relacionadas:</p>
+        <ul>
+          <li>
+            <a href="02_1_Suites_e_Cases.html">Suites &amp; Cases</a> – Como
+            organizar funcionalidades e casos
+          </li>
+          <li>
+            <a href="02_2_Plans.html">Plans</a> – Como estruturar releases
+            quinzenais
+          </li>
+          <li>
+            <a href="02_3_Runs.html">Runs</a> – Como registrar execuções
+            corretamente
+          </li>
+          <li>
+            <a href="02_4_Registro_de_Resultados.html"
+              >Registro de Resultados</a
+            >
+            – Como marcar, documentar e evidenciar
+          </li>
+        </ul>
+        <h2>Conclusão:</h2>
+        <p>
+          Seguir este padrão garante dados limpos, rastreáveis e prontos para
+          análise, permitindo que o WellnessQAReporter gere KPIs de alta
+          confiabilidade e reduza o esforço manual dos times.
+        </p>
+      </div>
+      <p><a href="index.html">⬅ Voltar ao índice</a></p>
+    </div>
+  </body>
+</html>

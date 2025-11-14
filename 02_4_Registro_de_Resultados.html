@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Registro de Resultados</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+    <div id="content">
+      <h1>Registro de Resultados</h1>
+      <div class="section-block">
+        <p>Registro de Resultados (Passed, Failed, Blocked, Skipped)</p>
+        <p>
+          Esta página define como os resultados devem ser registrados dentro das
+          Runs no Qase.
+        </p>
+        <p>
+          O preenchimento correto dos resultados é essencial para que o
+          WellnessQAReporter calcule KPIs precisos, rastreie falhas, identifique
+          padrões e gere relatórios confiáveis.
+        </p>
+        <h2>Objetivo:</h2>
+        <p>
+          Garantir que todos os casos executados em uma Test Run recebam um
+          status coerente, com justificativas e evidências adequadas.
+        </p>
+        <h2>1. Importância do Registro de Resultados</h2>
+        <p>O resultado de cada caso de teste impacta diretamente:</p>
+        <ul>
+          <li>KPIs de execução (quantidade e porcentagem)</li>
+          <li>KPIs de qualidade (taxas de sucesso e falha)</li>
+          <li>Visão por funcionalidade</li>
+          <li>Detecção e classificação de defeitos</li>
+          <li>Rastreabilidade do ciclo de testes</li>
+        </ul>
+        <p>
+          Resultados incompletos, incorretos ou sem justificativa comprometem
+          todo o relatório.
+        </p>
+        <h2>2. Tipos de Resultados e Quando Utilizar</h2>
+        <h3>2.1 Passed</h3>
+        <p>Use Passed quando:</p>
+        <ul>
+          <li>o caso de teste executou exatamente como esperado</li>
+          <li>não houve erro, travamento ou comportamento estranho</li>
+          <li>o fluxo corresponde à documentação do case</li>
+        </ul>
+        <p>Nunca utilize Passed se houver qualquer anomalia observada.</p>
+        <h3>2.2 Failed</h3>
+        <p>Use Failed quando:</p>
+        <ul>
+          <li>o caso não obteve o resultado esperado</li>
+          <li>ocorreu erro funcional ou de interface</li>
+          <li>o fluxo foi quebrado</li>
+          <li>comportamento inesperado foi encontrado</li>
+        </ul>
+        <p>Toda falha deve gerar um defeito.</p>
+        <p>Nenhuma run deve conter Failed sem issue (defect) associada.</p>
+        <h3>2.3 Blocked</h3>
+        <p>Use Blocked quando:</p>
+        <ul>
+          <li>o app não permite iniciar o teste</li>
+          <li>
+            há impedimento externo (ex.: login indisponível, servidor fora do
+            ar)
+          </li>
+          <li>a funcionalidade está inacessível</li>
+        </ul>
+        <b>
+          <p>
+            Importante: Blocked não significa falha funcional — significa que o
+            teste não pôde ser executado.
+          </p>
+        </b>
+        <h3>2.4 Skipped</h3>
+        <p>Use Skipped quando:</p>
+        <ul>
+          <li>o caso não se aplica à plataforma</li>
+          <li>o cenário é inválido para aquela versão</li>
+          <li>há dependência quebrada no próprio case</li>
+        </ul>
+        <p>Skipped deve ser exceção, nunca regra.</p>
+        <h2>3. Regras Obrigatórias de Preenchimento</h2>
+        <ul>
+          <li>Nenhum caso pode ficar sem status.</li>
+          <li>Casos Failed precisam de comentários claros.</li>
+          <li>Blocked deve explicar o motivo da impossibilidade.</li>
+          <li>Skipped deve justificar por que o caso não se aplica.</li>
+          <li>Evidências são obrigatórias para Failed e Blocked.</li>
+          <li>Não finalizar a run com casos em branco.</li>
+          <li>Revisar todos os status antes de encerrar.</li>
+        </ul>
+        <h2>4. Evidências</h2>
+        <p>Evidências são essenciais para auditoria e rastreamento.</p>
+        <p>Devem incluir:</p>
+        <ul>
+          <li>prints de tela</li>
+          <li>vídeos (quando necessário)</li>
+          <li>logs</li>
+          <li>mensagens de erro</li>
+        </ul>
+        <p>Evidências devem ser anexadas ao resultado, jamais ao case.</p>
+        <h2>5. Comentários Obrigatórios</h2>
+        <p>Casos Failed devem explicar:</p>
+        <ul>
+          <li>o que foi feito</li>
+          <li>o que era esperado</li>
+          <li>o que ocorreu de errado</li>
+        </ul>
+        <p>Casos Blocked devem explicar:</p>
+        <ul>
+          <li>o motivo da impossibilidade de execução</li>
+          <li>evidências do bloqueio</li>
+        </ul>
+        <p>Casos Skipped devem explicar:</p>
+        <ul>
+          <li>por que o teste não se aplica ao cenário</li>
+        </ul>
+        <h2>6. Erros Comuns (e proibidos)</h2>
+        <ul>
+          <li>❌ Marcar Passed apenas para “terminar rápido”</li>
+          <li>❌ Marcar Blocked quando na verdade houve falha funcional</li>
+          <li>❌ Não anexar evidências</li>
+          <li>❌ Executar caso sem seguir os passos</li>
+          <li>❌ Não detalhar comentários de falha</li>
+          <li>❌ Deixar casos sem status</li>
+          <li>❌ Usar Skipped para mascarar falhas reais</li>
+        </ul>
+        <h2>7. Impacto nos KPIs do WellnessQAReporter</h2>
+        <p>Os resultados determinam:</p>
+        <ul>
+          <li>taxa de sucesso</li>
+          <li>taxa de falha</li>
+          <li>distribuição por funcionalidade</li>
+          <li>severidade dos defeitos (via Failed)</li>
+          <li>impacto por plataforma</li>
+          <li>consistência da cobertura</li>
+        </ul>
+        <h2>Conclusão:</h2>
+        <p>
+          O registro correto dos resultados é crítico para o sucesso do processo
+          de QA e para a precisão dos relatórios do WellnessQAReporter.
+        </p>
+        <p>
+          A disciplina no preenchimento garante qualidade, rastreabilidade e
+          confiabilidade dos dados.
+        </p>
+      </div>
+      <p><a href="index.html">⬅ Voltar ao índice</a></p>
+    </div>
+  </body>
+</html>

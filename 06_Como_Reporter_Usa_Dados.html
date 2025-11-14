@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Como o Reporter usa os Dados</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+    <div id="content">
+      <h1>Como o Reporter usa os Dados</h1>
+      <div class="section-block">
+        <p>7 - Como o WellnessQAReporter Usa os Dados do Qase</p>
+        <p>
+          Esta página explica exatamente como o WellnessQAReporter interpreta os
+          dados do Qase e por que a padronização
+        </p>
+        <p>
+          é fundamental para garantir relatórios corretos, KPIs precisos e
+          visibilidade real sobre a qualidade da release.
+        </p>
+        <p>Objetivo:</p>
+        <p>
+          Demonstrar a relação direta entre a qualidade das informações
+          registradas no Qase e a precisão dos relatórios
+        </p>
+        <p>gerados pelo WellnessQAReporter.</p>
+        <p>1. O Papel do WellnessQAReporter</p>
+        <p>
+          O WellnessQAReporter coleta automaticamente dados do Qase e transforma
+          essas informações em:
+        </p>
+        <p>• KPIs de escopo</p>
+        <p>• KPIs de cobertura</p>
+        <p>• KPIs de execução</p>
+        <p>• KPIs de falhas</p>
+        <p>• Métricas por funcionalidade</p>
+        <p>• Métricas por plataforma (iOS e Android)</p>
+        <p>• Métricas por idioma (PT/EN/ES)</p>
+        <p>• Análises de defeitos</p>
+        <p>• Resumo funcional</p>
+        <p>• Tendência por release</p>
+        <p>
+          Cada resultado depende diretamente da forma como os QAs registram e
+          organizam seus dados.
+        </p>
+        <p>2. Como o Reporter Lê as Suites</p>
+        <p>
+          O Reporter utiliza as Suites para identificar funcionalidades e
+          módulos do aplicativo.
+        </p>
+        <p>Se as suites estiverem mal estruturadas:</p>
+        <p>• funcionalidades ficam misturadas</p>
+        <p>• KPIs por módulo tornam-se imprecisos</p>
+        <p>• relatórios perdem integridade</p>
+        <p>Por isso as suites devem ser organizadas por funcionalidade.</p>
+        <p>3. Como o Reporter Lê os Cases</p>
+        <p>Os cases são utilizados para:</p>
+        <p>• identificar detalhes da funcionalidade</p>
+        <p>• calcular escopo planejado</p>
+        <p>• rastrear passos de falha</p>
+        <p>• classificar casos por idioma e plataforma</p>
+        <p>Tags incorretas prejudicam os KPIs.</p>
+        <p>4. Como o Reporter Lê os Plans</p>
+        <p>O Plan determina o escopo total da release.</p>
+        <p>O Reporter usa o Plan para:</p>
+        <p>• contar o total de casos planejados</p>
+        <p>• calcular cobertura de teste</p>
+        <p>• comparar planejado vs executado</p>
+        <p>
+          Se o Plan estiver incompleto, todos os KPIs de escopo ficam errados.
+        </p>
+        <p>5. Como o Reporter Lê as Runs</p>
+        <p>As Runs são a base da execução real.</p>
+        <p>O Reporter utiliza as runs para calcular:</p>
+        <p>• percentual executado</p>
+        <p>• percentual aprovado</p>
+        <p>• taxa de falha</p>
+        <p>• progresso por plataforma</p>
+        <p>• histórico da execução</p>
+        <p>
+          Runs incompletas (casos sem status, runs abandonadas) comprometem toda
+          a análise.
+        </p>
+        <p>6. Como o Reporter Lê os Resultados</p>
+        <p>Os resultados (Passed, Failed, Blocked, Skipped) alimentam:</p>
+        <p>• taxa de sucesso</p>
+        <p>• taxa de falha</p>
+        <p>• análise de bloqueios</p>
+        <p>• testes inválidos (Skipped)</p>
+        <p>• qualidade geral da release</p>
+        <p>
+          Comentários ausentes, evidências faltando e resultados vazios
+          prejudicam todos esses indicadores.
+        </p>
+        <p>7. Como o Reporter Lê os Defeitos</p>
+        <p>Os defeitos são usados para calcularem:</p>
+        <p>• defeitos por severidade</p>
+        <p>• defeitos por funcionalidade</p>
+        <p>• defeitos por plataforma</p>
+        <p>• taxa de falha por módulo</p>
+        <p>• defeitos por release</p>
+        <p>• reincidência</p>
+        <p>
+          Quando defeitos não estão vinculados ao resultado da run, eles
+          simplesmente desaparecem dos relatórios.
+        </p>
+        <p>8. O que Acontece Quando os Dados Estão Incompletos</p>
+        <p>Dados incorretos no Qase geram:</p>
+        <p>❌ KPIs inconsistentes</p>
+        <p>❌ falhas não contabilizadas</p>
+        <p>❌ funcionalidades sem rastreamento</p>
+        <p>❌ divergência entre projetos</p>
+        <p>❌ relatórios imprecisos</p>
+        <p>
+          O Reporter não &quot;adivinha&quot; dados — ele usa exatamente o que
+          está no Qase.
+        </p>
+        <p>9. Garantindo KPIs Confiáveis</p>
+        <p>Para que o Reporter entregue dados 100% confiáveis, é necessário:</p>
+        <p>• suites padronizadas</p>
+        <p>• plans completos</p>
+        <p>• runs executadas corretamente</p>
+        <p>• todos os casos com status</p>
+        <p>• defeitos vinculados e completos</p>
+        <p>• evidências disponíveis</p>
+        <p>• severidades revisadas</p>
+        <p>Conclusão:</p>
+        <p>
+          A qualidade do WellnessQAReporter é proporcional à qualidade dos dados
+          registrados no Qase.
+        </p>
+        <p>
+          Quando o processo é seguido corretamente, os relatórios se tornam uma
+          ferramenta poderosa para gestão,
+        </p>
+        <p>decisão executiva e melhoria contínua da qualidade.</p>
+      </div>
+      <p><a href="index.html">⬅ Voltar ao índice</a></p>
+    </div>
+  </body>
+</html>

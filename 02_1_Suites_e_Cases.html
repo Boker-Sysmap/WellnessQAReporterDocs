@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Suites &amp; Cases</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+    <div id="content">
+      <h1>Suites &amp; Cases</h1>
+      <div class="section-block">
+        <p>
+          Esta página detalha como as Suites e os Test Cases devem ser
+          estruturados no Qase para garantir que o WellnessQAReporter consiga
+          interpretar corretamente as funcionalidades, plataformas, idiomas e
+          impacto de cada área do aplicativo.
+        </p>
+        <h2>Objetivo:</h2>
+        <p>
+          Estabelecer um padrão claro e obrigatório para criação e manutenção de
+          Suites e Test Cases, evitando duplicações, inconsistências e lacunas
+          de informação.
+        </p>
+        <h2>1. Estrutura de Suites</h2>
+        <p>
+          As Suites devem representar agrupamentos funcionais do aplicativo.
+          Cada suite deve corresponder a uma funcionalidade ou módulo
+          específico.
+        </p>
+        <h3>Padrões obrigatórios:</h3>
+        <ul>
+          <li>Cada suite deve cobrir uma única funcionalidade.</li>
+          <li>
+            Nomenclatura obrigatória: “Nome da Funcionalidade –
+            Subfuncionalidade (se aplicável)”.
+          </li>
+          <li>
+            Suites genéricas não são permitidas (ex.: “Testes Gerais”,
+            “Diversos”).
+          </li>
+          <li>Suites devem ser revisadas a cada release quinzenal.</li>
+        </ul>
+
+        <h3>Exemplos de nomenclatura:</h3>
+        <ul>
+          <li>Autenticação – Login</li>
+          <li>Autenticação – Recuperar Senha</li>
+          <li>Pagamentos – Cartão de Crédito</li>
+          <li>Perfil – Edição de Dados</li>
+          <li>Configurações – Idioma</li>
+        </ul>
+        <h3>Por que isso é importante?</h3>
+        <p>
+          O WellnessQAReporter gera o “Resumo Funcional” usando as suites para
+          agrupar funcionalidades.
+        </p>
+        <p>
+          Se as suites estiverem desorganizadas, os KPIs por módulo ficarão
+          incorretos ou incompletos.
+        </p>
+        <h2>2. Estrutura de Cases</h2>
+        <p>
+          Cada caso de teste deve ser completo, objetivo e conter todas as
+          informações necessárias para a execução, auditoria e rastreamento.
+        </p>
+        <h3>Itens obrigatórios de um Test Case:</h3>
+        <ul>
+          <li>Título claro e padronizado.</li>
+          <li>Descrição do cenário.</li>
+          <li>Pré-condições.</li>
+          <li>Passo a passo detalhado.</li>
+          <li>Resultado esperado.</li>
+          <li>Tags de plataforma (iOS e/ou Android).</li>
+          <li>Tags de idioma (PT/EN/ES), quando aplicável.</li>
+          <li>
+            Severidade do caso (opcional, mas recomendado para regressões).
+          </li>
+        </ul>
+        <h3>Padrões de Título:</h3>
+        <ul>
+          <li>Sempre iniciar com o objetivo do teste.</li>
+          <li>Evitar títulos vagos como “Validar tela A”.</li>
+        </ul>
+        <h3>Exemplos corretos:</h3>
+        <ul>
+          <li>Validar login com credenciais válidas.</li>
+          <li>Validar mensagem de erro ao inserir senha incorreta.</li>
+          <li>Validar seleção de idioma para espanhol.</li>
+        </ul>
+        <h3>Exemplos incorretos:</h3>
+        <ul>
+          <li>Teste login.</li>
+          <li>Teste senha.</li>
+          <li>Verificar tela X.</li>
+        </ul>
+        <h3>Por que isso é importante?</h3>
+        <p>
+          O Reporter depende dos títulos para classificações e para documentar o
+          fluxo de teste.
+        </p>
+        <p>
+          Cases mal descritos prejudicam análises e dificultam rastreamento.
+        </p>
+        <h2>3. Tags</h2>
+        <p>As tags permitem que o Reporter divida corretamente os KPIs por:</p>
+        <ul>
+          <li>plataforma (iOS / Android)</li>
+          <li>idioma (PT / EN / ES)</li>
+          <li>categoria funcional (opcional, mas recomendado)</li>
+        </ul>
+        <h3>Tags obrigatórias:</h3>
+        <ul>
+          <li>iOS</li>
+          <li>Android</li>
+        </ul>
+        <h3>Tags opcionais (quando aplicável):</h3>
+        <ul>
+          <li>PT</li>
+          <li>EN</li>
+          <li>ES</li>
+        </ul>
+        <h3>Erro comum:</h3>
+        <p>
+          Test Cases duplicados apenas para trocar idioma — não é necessário
+          criar três casos, apenas diferenciar via tags.
+        </p>
+        <h2>4. Boas práticas gerais</h2>
+        <ul>
+          <li>Nunca duplicar test cases sem motivo.</li>
+          <li>Atualizar test cases quando comportamento do app muda.</li>
+          <li>Usar linguagem clara e objetiva.</li>
+          <li>Evitar siglas não oficiais.</li>
+          <li>
+            Centralizar anexos referentes ao teste apenas nos resultados, nunca
+            no test case.
+          </li>
+        </ul>
+        <h2>Conclusão:</h2>
+        <p>
+          Suites e Test Cases bem estruturados garantem rastreamento claro e
+          KPIs confiáveis.
+        </p>
+        <p>
+          Essas regras são obrigatórias para garantir que o WellnessQAReporter
+          funcione com precisão.
+        </p>
+      </div>
+      <p><a href="index.html">⬅ Voltar ao índice</a></p>
+    </div>
+  </body>
+</html>

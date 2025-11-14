@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Governança de Defeitos</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+    <div id="content">
+      <h1>Governança de Defeitos</h1>
+      <div class="section-block">
+        <p>
+          Esta página define as regras oficiais para registro, classificação e
+          manutenção de defeitos no Qase.
+        </p>
+        <p>
+          A governança de defeitos é essencial para que o WellnessQAReporter
+          consiga rastrear falhas, calcular KPIs e fornecer visibilidade clara
+          sobre a qualidade das releases.
+        </p>
+        <h2>Objetivo:</h2>
+        <p>
+          Garantir que todos os defeitos sejam registrados de forma completa,
+          padronizada e profissional, permitindo análise consistente entre
+          projetos, plataformas e ciclos de release.
+        </p>
+        <h2>1. Princípios da Governança de Defeitos</h2>
+        <h3>Abertura obrigatória:</h3>
+        <p>Todo caso marcado como Failed deve gerar um defeito.</p>
+        <h3>Rastreabilidade completa:</h3>
+        <p>
+          Todo defeito deve estar obrigatoriamente vinculado ao resultado
+          (result) da Test Run.
+        </p>
+        <h3>Clareza e objetividade:</h3>
+        <p>
+          A descrição deve permitir reprodução fácil, sem interpretações
+          subjetivas.
+        </p>
+        <h3>Classificação adequada:</h3>
+        <p>
+          Severidade, impacto, plataforma e idioma devem refletir corretamente a
+          situação real.
+        </p>
+        <h2>2. Quando abrir um defeito?</h2>
+        <p>Deve-se abrir um defeito quando:</p>
+        <ul>
+          <li>o resultado obtido é diferente do esperado</li>
+          <li>
+            o app apresenta erro, travamento ou comportamento fora do padrão
+          </li>
+          <li>o fluxo do usuário é interrompido</li>
+          <li>a funcionalidade não opera como especificado</li>
+          <li>existe inconsistência visual relevante</li>
+        </ul>
+        <p>Não abrir defeito quando:</p>
+        <ul>
+          <li>o caso foi mal executado</li>
+          <li>os passos foram ignorados</li>
+          <li>existe falta de entendimento do cenário</li>
+          <li>
+            há problema externo e temporário (ex.: API fora do ar → usar
+            Blocked)
+          </li>
+        </ul>
+        <h2>3. Itens obrigatórios no registro do defeito</h2>
+        <p>Todo defeito deve conter:</p>
+        <ul>
+          <li>Título claro e objetivo</li>
+          <li>Descrição completa do problema</li>
+          <li>Passos para reproduzir</li>
+          <li>Resultado esperado</li>
+          <li>Resultado obtido</li>
+          <li>Plataforma (iOS/Android)</li>
+          <li>Idioma, quando aplicável (PT/EN/ES)</li>
+          <li>Evidências (prints, vídeo, logs)</li>
+          <li>Build/versão</li>
+          <li>Ambiente (produção, homologação, etc.)</li>
+          <li>Severidade</li>
+          <li>Relação com o caso de teste executado</li>
+        </ul>
+        <h3>Erros proibidos:</h3>
+        <ul>
+          <li>❌ Defeitos com título vago</li>
+          <li>❌ Descrição incompleta</li>
+          <li>❌ Falta de evidências</li>
+          <li>❌ Defeitos sem vínculo de execução</li>
+        </ul>
+        <h2>4. Severidade dos Defeitos</h2>
+        <p>
+          A severidade indica a criticidade do problema. Padrões recomendados:
+        </p>
+        <ul>
+          <li>🔴 <b>Blocker</b></li>
+
+          <p>
+            Impacto: O sistema ou funcionalidade principal está completamente
+            inutilizável.
+          </p>
+
+          <p>
+            Exemplo: O app não inicia, ou a tela de login não autentica nenhum
+            usuário. <br />
+            Ação: Corrigir imediatamente, pois impede testes ou uso do sistema.
+          </p>
+          <li>🔴 <b>Critical</b></li>
+          <p>
+            Impacto: Falha grave que compromete uma funcionalidade essencial,
+            mas o sistema ainda é acessível.
+          </p>
+          <p>
+            Exemplo: O pagamento falha após clicar em “Confirmar compra”. <br />
+            Ação: Correção prioritária; o defeito pode bloquear entregas
+            críticas.
+          </p>
+          <li>🟠<b>Major</b></li>
+          <p>
+            Impacto: Problema significativo que afeta uma funcionalidade
+            importante, mas há alternativa ou workaround.
+          </p>
+          <p>
+            Exemplo: Não é possível editar um perfil, mas é possível criar um
+            novo.<br />
+            Ação: Corrigir o quanto antes, mas não bloqueia o release inteiro.
+          </p>
+          <li>🟡 <b>Normal</b></li>
+          <p>
+            Impacto: Erro de comportamento esperado, mas sem prejuízo grave.
+          </p>
+          <p>
+            Exemplo: Mensagem de validação incorreta, mas o fluxo ainda
+            funciona.<br />
+            Ação: Corrigir em versões futuras.
+          </p>
+          <li>🟢 <b>Minor</b></li>
+          <p>Impacto: Falha estética ou pequena inconsistência funcional.</p>
+          <p>
+            Exemplo: Ícone desalinhado ou texto truncado. <br />
+            Ação: Corrigir quando possível, sem urgência.
+          </p>
+          <li>⚪ <b>Trivial</b></li>
+          <p>
+            Impacto: Defeito mínimo, sem efeito real na usabilidade ou
+            funcionalidade.
+          </p>
+          <p>
+            Exemplo: Espaço duplo em uma label, ou erro de digitação.<br />
+            Ação: Pode ser corrigido oportunamente.
+          </p>
+          <li>⚫ <b>Not Set</b></li>
+          <p>
+            Impacto: Severidade ainda não definida.<br />
+            Uso: Normalmente usado como valor padrão até o QA classificar o
+            defeito.
+          </p>
+        </ul>
+        <p>
+          Não utilizar severidade baixa para diminuir prioridade
+          artificialmente.
+        </p>
+        <h2>5. Vínculo obrigatório com a Execução</h2>
+        <p>Todo defeito deve ser vinculado ao Result correspondente.</p>
+        <p>Isso garante:</p>
+        <ul>
+          <li>rastreabilidade total</li>
+          <li>métricas por plataforma</li>
+          <li>métricas por funcionalidade</li>
+          <li>KPIs de falhas por release</li>
+        </ul>
+        <p>Sem esse vínculo, o Reporter não contabiliza a falha.</p>
+
+        <h2>6. Evidências obrigatórias</h2>
+        <p>As evidências devem deixar claro:</p>
+        <ul>
+          <li>onde ocorreu a falha</li>
+          <li>qual passo foi afetado</li>
+          <li>qual mensagem de erro apareceu</li>
+          <li>o comportamento real do aplicativo</li>
+        </ul>
+        <p>Tipos de evidência aceitos:</p>
+        <ul>
+          <li>prints de tela</li>
+          <li>vídeos curtos</li>
+          <li>logs (quando aplicável)</li>
+        </ul>
+        <p>
+          Evidências devem estar anexadas ao resultado da run ou ao próprio
+          defeito.
+        </p>
+        <h2>7. Processo de revisão de defeitos</h2>
+        <p>O QA líder deve revisar:</p>
+        <ul>
+          <li>severidade</li>
+          <li>clareza da descrição</li>
+          <li>vínculo com execução</li>
+          <li>evidências</li>
+          <li>duplicidade</li>
+        </ul>
+        <p>Duplicidade de defeitos deve ser eliminada imediatamente.</p>
+        <h2>8. Boas práticas</h2>
+        <ul>
+          <li>manter títulos curtos e claros</li>
+          <li>sempre incluir o passo onde ocorreu a falha</li>
+          <li>usar linguagem objetiva</li>
+          <li>incluir contexto suficiente para reprodução</li>
+          <li>revisar defeitos antes de finalizar a run</li>
+          <li>verificar se há duplicatas existentes</li>
+        </ul>
+        <h2>9. Impacto no WellnessQAReporter</h2>
+        <p>Os defeitos alimentam diversos KPIs:</p>
+        <ul>
+          <li>defeitos por severidade</li>
+          <li>defeitos por funcionalidade</li>
+          <li>defeitos por plataforma</li>
+          <li>defeitos por release</li>
+          <li>taxa de falha</li>
+          <li>regressões reincidentes</li>
+        </ul>
+        <p>Se defeitos não estiverem padronizados → KPIs ficam inconfiáveis.</p>
+        <h2>Conclusão:</h2>
+        <p>
+          A governança de defeitos é um dos pilares mais importantes do processo
+          de QA.
+        </p>
+        <p>
+          Seguir esse padrão garante rastreamento completo, transparência e
+          qualidade nos relatórios gerados pelo WellnessQAReporter.
+        </p>
+      </div>
+      <p><a href="index.html">⬅ Voltar ao índice</a></p>
+    </div>
+  </body>
+</html>
