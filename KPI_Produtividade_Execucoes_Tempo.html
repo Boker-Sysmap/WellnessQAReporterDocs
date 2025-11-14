@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>KPI – Produtividade (Execuções x Tempo / Mês)</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+
+    <div id="content">
+      <h1>
+        KPI – Produtividade<br />
+        (Execuções x Tempo / Mês – Manual x Automatizado)
+      </h1>
+
+      <div class="section-block">
+        <h2>1. Objetivo do KPI</h2>
+        <p>
+          Este KPI mede a <strong>produtividade do time de QA</strong> ao
+          avaliar:
+        </p>
+
+        <ul>
+          <li>Quantidade de execuções realizadas por mês</li>
+          <li>Tempo gasto nas execuções</li>
+          <li>
+            Separação por tipo de execução:
+            <ul>
+              <li><strong>Manual</strong></li>
+              <li><strong>Automatizada</strong></li>
+            </ul>
+          </li>
+        </ul>
+
+        <p>
+          O objetivo é identificar capacidade, eficiência, custo operacional e
+          oportunidades de automação.
+        </p>
+
+        <h2>2. Regras de Negócio</h2>
+
+        <h3>2.1 RN01 – Execuções consideradas</h3>
+        <p>
+          O KPI deve contabilizar
+          <strong>todas as execuções registradas no Qase</strong> (Runs e
+          resultados), desde que:
+        </p>
+        <ul>
+          <li>Possuam data de execução válida</li>
+          <li>
+            Sejam executadas por um membro da equipe ou pelo pipeline de
+            automação
+          </li>
+        </ul>
+
+        <h3>2.2 RN02 – Classificação por tipo de execução</h3>
+        <p>Cada execução deve ser classificada como:</p>
+        <ul>
+          <li>
+            <strong>Manual</strong> – quando realizada por um executor humano
+          </li>
+          <li>
+            <strong>Automatizada</strong> – quando registrada via integração de
+            automação
+          </li>
+        </ul>
+
+        <p>A determinação pode ser feita por:</p>
+        <ul>
+          <li>Origem da execução (API / Integração CI/CD)</li>
+          <li>Tag específica no Test Case (“automated”, “manual”)</li>
+          <li>Usuário executor (robô de automação vs. humano)</li>
+        </ul>
+
+        <h3>2.3 RN03 – Tempo considerado</h3>
+        <p>O tempo de execução é obtido do campo de duração do resultado:</p>
+        <ul>
+          <li><em>duration</em></li>
+          <li><em>time_spent</em></li>
+          <li>ou equivalente fornecido via integração</li>
+        </ul>
+
+        <h3>2.4 RN04 – Período mensal</h3>
+        <p>O KPI sempre deve ser calculado por mês calendário:</p>
+        <ul>
+          <li>1º ao último dia do mês</li>
+          <li>Time zone padrão do projeto</li>
+        </ul>
+
+        <h3>2.5 RN05 – Execuções sem tempo registrado</h3>
+        <p>Execuções sem tempo informado devem registrar:</p>
+        <ul>
+          <li><strong>Manual:</strong> uso de tempo médio histórico</li>
+          <li>
+            <strong>Automatizado:</strong> 0 ou tempo informado via pipeline
+          </li>
+        </ul>
+
+        <h2>3. Cálculo do KPI no WellnessQAReporter</h2>
+
+        <h3>3.1 Fonte dos dados</h3>
+        <ul>
+          <li><code>/run</code> – Runs do período</li>
+          <li><code>/result</code> – resultados de cada execução</li>
+          <li><code>/case</code> – tipo do case (manual x automatizado)</li>
+        </ul>
+
+        <h3>3.2 Métricas geradas</h3>
+
+        <p><strong>Para cada mês:</strong></p>
+
+        <ul>
+          <li>Execuções manuais</li>
+          <li>Execuções automatizadas</li>
+          <li>Tempo total manual</li>
+          <li>Tempo total automatizado</li>
+          <li>Tempo médio por execução (manual e auto)</li>
+          <li>
+            Produtividade total:
+            <br />
+            <em>Execuções ÷ Tempo total</em>
+          </li>
+        </ul>
+
+        <h3>3.3 Algoritmo</h3>
+        <ol>
+          <li>Listar todas as execuções registradas no mês.</li>
+          <li>Identificar tipo da execução (manual/automação).</li>
+          <li>Somar o tempo total por tipo.</li>
+          <li>Contar total de execuções por tipo.</li>
+          <li>
+            Calcular:
+            <br /><br />
+            <strong>
+              Produtividade = número de execuções / total de horas
+            </strong>
+            <br /><br />
+            <strong> Tempo médio = total de horas / total de execuções </strong>
+          </li>
+        </ol>
+
+        <h2>4. Configuração necessária no Qase</h2>
+
+        <h3>4.1 Definir tag de automação</h3>
+        <p>Exemplo de tags:</p>
+        <ul>
+          <li><code>automated</code></li>
+          <li><code>manual</code></li>
+        </ul>
+
+        <h3>4.2 Integração CI/CD para automação</h3>
+        <p>Execuções automatizadas devem ser registradas via API com:</p>
+        <ul>
+          <li>data de execução</li>
+          <li>tempo de execução</li>
+          <li>status</li>
+          <li>executor (usuário bot)</li>
+        </ul>
+
+        <h3>4.3 Disciplina na abertura de Runs</h3>
+        <p>
+          Execuções manuais devem sempre ser registradas pela equipe via Runs,
+          nunca como execuções soltas.
+        </p>
+
+        <h3>4.4 Padronização de tempo manual</h3>
+        <p>O QA deve registrar a duração real ao finalizar o resultado.</p>
+
+        <h2>5. Riscos e pontos de atenção</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Risco</th>
+              <th>Impacto</th>
+              <th>Solução</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Execuções sem tempo informado</td>
+              <td>Distorção de produtividade</td>
+              <td>Registrar tempo manualmente ou corrigir pipeline</td>
+            </tr>
+            <tr>
+              <td>Mistura de execuções manuais e automatizadas</td>
+              <td>Indicador fica impreciso</td>
+              <td>Usar tags e usuários específicos para automação</td>
+            </tr>
+            <tr>
+              <td>Execuções fora de Runs</td>
+              <td>Perda de rastreabilidade</td>
+              <td>Proibir execução avulsa</td>
+            </tr>
+            <tr>
+              <td>Tags inconsistentes</td>
+              <td>Dificulta separar manual e auto</td>
+              <td>Criar lista oficial de tags</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>6. Resumo executivo</h2>
+
+        <ul>
+          <li>Mede a produtividade mensal do time de QA.</li>
+          <li>Distingue execuções manuais e automatizadas.</li>
+          <li>Tempo é fundamental para medir eficiência.</li>
+          <li>Depende do correto registro das execuções.</li>
+          <li>Ajuda a identificar oportunidades de automação.</li>
+        </ul>
+      </div>
+
+      <p><a href="kpis.html">⬅ Voltar</a></p>
+    </div>
+  </body>
+</html>

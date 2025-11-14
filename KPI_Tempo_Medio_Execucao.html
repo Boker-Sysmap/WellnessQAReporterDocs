@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>KPI – Tempo Médio de Execução da Release</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+
+    <div id="content">
+      <h1>KPI – Tempo Médio de Execução da Release</h1>
+
+      <div class="section-block">
+        <h2>1. Objetivo do KPI</h2>
+        <p>
+          Este KPI mede o
+          <strong
+            >tempo médio necessário para executar todo o escopo
+            planejado</strong
+          >
+          da release. Ele representa a velocidade da equipe na execução dos
+          testes e ajuda a:
+        </p>
+
+        <ul>
+          <li>Dimensionar capacidade do time</li>
+          <li>Antecipar atrasos no ciclo</li>
+          <li>Identificar gargalos em execuções longas</li>
+          <li>
+            Ajustar estimativas para sprints e próximas releases com mais
+            precisão
+          </li>
+        </ul>
+
+        <h2>2. Regras de Negócio</h2>
+
+        <h3>2.1 RN01 – Definição do tempo de execução</h3>
+        <p>
+          O tempo considerado é a <strong>duração real</strong> registrada pelo
+          executor em cada resultado de teste (campo <em>"time spent"</em>,
+          <em>"duration"</em> ou equivalente na API do Qase).
+        </p>
+
+        <h3>2.2 RN02 – Casos sem tempo informado</h3>
+        <p>
+          Caso um resultado não tenha duração registrada, assume-se
+          <strong>zero</strong>. Isso ocorre quando:
+        </p>
+        <ul>
+          <li>O executor não iniciou/finalizou o timer</li>
+          <li>Execução foi manual sem registro de tempo</li>
+          <li>O caso foi marcado diretamente sem contagem</li>
+        </ul>
+
+        <p>
+          Recomenda-se treinar a equipe para registrar o tempo corretamente no
+          Qase.
+        </p>
+
+        <h3>2.3 RN03 – Última execução válida</h3>
+        <p>
+          Se o case for executado mais de uma vez na release, considera-se o
+          <strong>tempo da última execução</strong>.
+        </p>
+
+        <h3>2.4 RN04 – Base de cálculo</h3>
+        <p>
+          Apenas cases pertencentes ao escopo (KPI 1) e que possuem resultado na
+          release são usados.
+        </p>
+
+        <p>
+          Formula geral:<br /><br />
+          <strong>
+            Tempo médio = soma dos tempos de execução / número de casos
+            executados
+          </strong>
+        </p>
+
+        <h3>2.5 RN05 – Unidades de medida</h3>
+        <p>
+          O KPI deve ser apresentado em:
+          <strong>minutos</strong> ou <strong>horas</strong>, dependendo do
+          volume da release.
+        </p>
+
+        <ul>
+          <li>
+            <strong>Até 59 minutos:</strong> mostrar em minutos (ex.: 32 min)
+          </li>
+          <li>
+            <strong>Acima de 60 minutos:</strong> converter automaticamente para
+            horas (ex.: 2h 14min)
+          </li>
+        </ul>
+
+        <h2>3. Cálculo do KPI no WellnessQAReporter</h2>
+
+        <h3>3.1 Fonte dos dados</h3>
+        <ul>
+          <li>/plan – planos da release</li>
+          <li>/run – runs criadas a partir dos planos</li>
+          <li>/result – resultados com tempo de execução</li>
+        </ul>
+
+        <h3>3.2 Algoritmo</h3>
+        <ol>
+          <li>Identificar o escopo total da release (KPI 1).</li>
+          <li>Localizar todas as runs da release.</li>
+          <li>
+            Para cada case executado, capturar o timestamp de início/fim ou o
+            campo duration/duration_ms.
+          </li>
+          <li>
+            Somar o tempo de execução de todos os cases (usando a execução mais
+            recente).
+          </li>
+          <li>Dividir pelo número de cases executados na release.</li>
+        </ol>
+
+        <h2>4. Configuração necessária no Qase</h2>
+
+        <h3>4.1 Registrar tempo de execução nas Runs</h3>
+        <p>
+          É necessário que a equipe clique em “Start Timer” e “Stop Timer” ou
+          registre manualmente o tempo ao finalizar um caso.
+        </p>
+
+        <h3>4.2 Execução somente via Test Plan</h3>
+        <p>
+          Execuções avulsas não têm relação com o escopo e não devem ser
+          consideradas.
+        </p>
+
+        <h3>4.3 A Release deve estar corretamente atribuída ao Plan</h3>
+        <p>
+          Caso contrário, o WellnessQAReporter não conseguirá identificar as
+          Runs do ciclo.
+        </p>
+
+        <h3>4.4 Garantir que a equipe finalize o resultado corretamente</h3>
+        <p>
+          Muitos testadores encerram o ciclo de execução sem salvar o resultado,
+          o que causa tempos zerados.
+        </p>
+
+        <h2>5. Riscos e pontos de atenção</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Risco</th>
+              <th>Impacto</th>
+              <th>Ação recomendada</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tempo não registrado</td>
+              <td>Tempo médio artificialmente baixo</td>
+              <td>Treinar a equipe no uso do timer do Qase</td>
+            </tr>
+            <tr>
+              <td>Runs avulsas fora do plano</td>
+              <td>Resultados não entram no cálculo</td>
+              <td>Executar sempre via Test Plan</td>
+            </tr>
+            <tr>
+              <td>Execuções duplicadas</td>
+              <td>Tempo inflado ou distorcido</td>
+              <td>Manter fluxo consistente de execução</td>
+            </tr>
+            <tr>
+              <td>Cases não atualizados</td>
+              <td>Tempo final não salvo</td>
+              <td>Checklist de encerramento da release</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>6. Resumo executivo</h2>
+        <ul>
+          <li>
+            O KPI mede a velocidade da equipe e eficiência do ciclo de execução.
+          </li>
+          <li>
+            Utiliza apenas o tempo real registrado em execuções vinculadas à
+            release.
+          </li>
+          <li>
+            Depende de boa disciplina na atualização das Runs dentro do Qase.
+          </li>
+          <li>
+            Serve como base para estimativas futuras e para identificar gargalos
+            de execução.
+          </li>
+        </ul>
+      </div>
+
+      <p><a href="kpis.html">⬅ Voltar</a></p>
+    </div>
+  </body>
+</html>

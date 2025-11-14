@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>KPI – Prevenção de Falhas (Defeitos detectados antes de PRD)</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+
+    <div id="content">
+      <h1>
+        KPI – Prevenção de Falhas<br />
+        (Defeitos detectados antes de PRD)
+      </h1>
+
+      <div class="section-block">
+        <h2>1. Objetivo do KPI</h2>
+        <p>
+          Este KPI mede
+          <strong
+            >quantos defeitos foram identificados antes da aplicação entrar em
+            produção (PRD)</strong
+          >, demonstrando a capacidade do QA em
+          <strong>prevenir falhas reais</strong>, reduzir incidentes e proteger
+          o usuário final.
+        </p>
+
+        <p>É um indicador essencial de:</p>
+        <ul>
+          <li>Maturidade do processo de testes</li>
+          <li>Efetividade da cobertura</li>
+          <li>Qualidade gerada antes da liberação</li>
+          <li>Risco operacional mitigado</li>
+        </ul>
+
+        <h2>2. Regras de Negócio</h2>
+
+        <h3>2.1 RN01 – Defeitos considerados</h3>
+        <p>Devem ser contabilizados defeitos:</p>
+        <ul>
+          <li>Encontrados durante a execução dos testes</li>
+          <li>Documentados no Qase ou Jira</li>
+          <li>
+            Que tenham sido identificados
+            <strong>antes da data de implantação em PRD</strong>
+          </li>
+        </ul>
+
+        <h3>2.2 RN02 – Exclusão de incidentes pós-produção</h3>
+        <p>
+          Incidentes abertos após a entrada em produção
+          <strong>não entram nesse KPI</strong>, mas podem fazer parte de outro
+          indicador (pós-produção).
+        </p>
+
+        <h3>2.3 RN03 – Classificação por criticidade</h3>
+        <p>A análise deve considerar severidades:</p>
+        <ul>
+          <li>Blocker</li>
+          <li>Critical</li>
+          <li>Major</li>
+          <li>Minor</li>
+          <li>Trivial</li>
+        </ul>
+
+        <p>
+          Isso permite medir se falhas críticas estão sendo retidas antes de
+          PRD.
+        </p>
+
+        <h3>2.4 RN04 – Data de referência</h3>
+        <p>A regra principal:</p>
+
+        <p>
+          <strong>defeito.data_criacao < data_implantacao_PRD</strong>
+        </p>
+
+        <h3>2.5 RN05 – KPI pode ser percentual ou absoluto</h3>
+        <p>Dois formatos possíveis:</p>
+        <ul>
+          <li><strong>Total de defeitos detectados antes de PRD</strong></li>
+          <li>
+            <strong
+              >% de prevenção = defeitos antes de PRD ÷ total de defeitos (antes
+              + depois)</strong
+            >
+          </li>
+        </ul>
+
+        <h2>3. Cálculo do KPI no WellnessQAReporter</h2>
+
+        <h3>3.1 Fonte dos dados</h3>
+        <ul>
+          <li><code>/defect</code> — data de criação e severidade</li>
+          <li><code>/result</code> — execução que originou o defeito</li>
+          <li>Data de implantação da release (via Qase ou config interna)</li>
+          <li>Incidentes pós-prod (opcional)</li>
+        </ul>
+
+        <h3>3.2 Algoritmo</h3>
+        <ol>
+          <li>Identificar a data de implantação da release.</li>
+          <li>Listar todos os defeitos associados à release.</li>
+          <li>Filtrar defeitos cuja data_criacao < data_implantacao.</li>
+          <li>Somar total de defeitos encontrados antes de PRD.</li>
+          <li>
+            (Opcional) Calcular: <br /><br />
+            <strong
+              >% prevenção = defeitos antes PRD ÷ total de defeitos</strong
+            >
+          </li>
+        </ol>
+
+        <h3>3.3 Classificação adicional (caso usada)</h3>
+        <ul>
+          <li>Por severidade</li>
+          <li>Por funcionalidade (suite/tag)</li>
+          <li>Por ambiente (QA, HML, STG)</li>
+          <li>Por sprint</li>
+        </ul>
+
+        <h2>4. Configuração necessária no Qase</h2>
+
+        <h3>4.1 Registrar data de implantação da release</h3>
+        <p>Pode ser:</p>
+        <ul>
+          <li>Através do módulo de <strong>Releases</strong></li>
+          <li>Ou configurado no WellnessQAReporter via arquivo de settings</li>
+        </ul>
+
+        <h3>4.2 Regras claras de abertura de defeitos</h3>
+        <p>Todo defeito deve possuir:</p>
+        <ul>
+          <li>Data de criação registrada automaticamente</li>
+          <li>Severidade</li>
+          <li>Associação com um resultado de execução</li>
+        </ul>
+
+        <h3>4.3 Distinção entre defeito e incidente pós-prod</h3>
+        <p>Incidentes pós-produção devem usar:</p>
+        <ul>
+          <li>Status específicos</li>
+          <li>Tags próprias (ex.: <code>post-prod</code>)</li>
+          <li>Ou sistema externo (ServiceNow, Jira Service Desk)</li>
+        </ul>
+
+        <h2>5. Riscos e pontos de atenção</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Risco</th>
+              <th>Impacto</th>
+              <th>Solução</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Data da instalação da release não registrada</td>
+              <td>Impossível separar antes x depois</td>
+              <td>Registrar a data em todas as releases</td>
+            </tr>
+            <tr>
+              <td>Defeitos sem severidade</td>
+              <td>Análise incompleta de criticidade</td>
+              <td>Tornar severidade obrigatória</td>
+            </tr>
+            <tr>
+              <td>Falhas abertas sem vinculação</td>
+              <td>Indicador perde rastreabilidade</td>
+              <td>Associar todos os defeitos a execuções</td>
+            </tr>
+            <tr>
+              <td>Incidentes pós-PRD misturados</td>
+              <td>Distorção de indicadores</td>
+              <td>Separar incidentes do fluxo normal de QA</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>6. Resumo executivo</h2>
+        <ul>
+          <li>Mede falhas detectadas antes de irem para produção.</li>
+          <li>Ajuda a mensurar a maturidade e efetividade do QA.</li>
+          <li>Exige a data de implantação da release para cálculo.</li>
+          <li>Indica redução de riscos e melhora de qualidade.</li>
+          <li>É um dos KPIs mais estratégicos para governança.</li>
+        </ul>
+      </div>
+
+      <p><a href="kpis.html">⬅ Voltar</a></p>
+    </div>
+  </body>
+</html>

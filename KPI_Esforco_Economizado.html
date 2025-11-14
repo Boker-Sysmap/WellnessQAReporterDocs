@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>KPI – Esforço Economizado (Automação x Execução Manual)</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+
+    <div id="content">
+      <h1>
+        KPI – Esforço Economizado<br />
+        (Tempo economizado pela automação com base no tempo manual)
+      </h1>
+
+      <div class="section-block">
+        <h2>1. Objetivo do KPI</h2>
+        <p>
+          Este KPI calcula
+          <strong>quanto tempo total foi economizado</strong> substituindo
+          execuções manuais por execuções automatizadas, com base no
+          <strong>tempo médio histórico de execução manual</strong>.
+        </p>
+
+        <p>Ele mostra:</p>
+        <ul>
+          <li>O impacto real da automação</li>
+          <li>A redução de esforço humano no QA</li>
+          <li>Economia operacional por sprint / release / mês</li>
+          <li>Previsão de capacidade e ROI da automação</li>
+        </ul>
+
+        <h2>2. Regras de Negócio</h2>
+
+        <h3>2.1 RN01 – Tempo manual de referência</h3>
+        <p>
+          O KPI utiliza o <strong>tempo médio de execução manual</strong> de um
+          determinado case para estimar quanto tempo seria gasto sem automação.
+        </p>
+
+        <p>Esse tempo pode vir de:</p>
+        <ul>
+          <li>Média histórica de execuções manuais</li>
+          <li>Métrica definida pelo QA Lead</li>
+          <li>Tempo registrado manualmente nas últimas releases</li>
+        </ul>
+
+        <h3>2.2 RN02 – Execuções automatizadas consideradas</h3>
+        <p>
+          Toda execução marcada como <strong>automatizada</strong> deve ser
+          contabilizada como “economia”.
+        </p>
+
+        <h3>2.3 RN03 – Fórmula base</h3>
+        <p>Para cada case automatizado:</p>
+
+        <p>
+          <strong>
+            Tempo economizado = Tempo médio manual × quantidade de execuções
+            automatizadas
+          </strong>
+        </p>
+
+        <p>O KPI total:</p>
+
+        <p>
+          <strong>
+            Esforço economizado total = soma de todos os tempos economizados dos
+            cases automatizados
+          </strong>
+        </p>
+
+        <h3>2.4 RN04 – Execuções manuais não entram na conta</h3>
+        <p>
+          Apenas execuções automatizadas contam, mesmo que o case tenha sido
+          executado manualmente antes.
+        </p>
+
+        <h3>2.5 RN05 – Tempo da automação não é considerado</h3>
+        <p>
+          O objetivo é medir economia, não comparar velocidade entre as
+          execuções.
+        </p>
+
+        <h2>3. Cálculo no WellnessQAReporter</h2>
+
+        <h3>3.1 Fonte dos dados</h3>
+        <ul>
+          <li>/run – Runs do ciclo ou do mês</li>
+          <li>/result – resultados das execuções</li>
+          <li>/case – informações sobre tipo do case (manual/automatizado)</li>
+          <li>Métricas de tempo médio manual (calculadas ou configuradas)</li>
+        </ul>
+
+        <h3>3.2 Algoritmo completo</h3>
+        <ol>
+          <li>Identificar todos os cases automatizados.</li>
+          <li>
+            Para cada case, obter:
+            <ul>
+              <li>Tempo médio manual</li>
+              <li>Quantidade de execuções automatizadas no período</li>
+            </ul>
+          </li>
+          <li>Calcular o tempo economizado por case.</li>
+          <li>Somar o total de tempo economizado.</li>
+          <li>Gerar o resultado consolidado por período (mês, release...).</li>
+        </ol>
+
+        <h2>4. Configuração necessária no Qase</h2>
+
+        <h3>4.1 Tag obrigatória para automação</h3>
+        <p>Exemplos:</p>
+        <ul>
+          <li><code>automated</code></li>
+          <li><code>automation</code></li>
+        </ul>
+
+        <h3>4.2 Registrar tempo manual fiel</h3>
+        <p>
+          Os QAs devem registrar o tempo de execução manual (timer do Qase).
+        </p>
+
+        <h3>4.3 Manter histórico de execuções manuais</h3>
+        <p>A automação só faz sentido comparada ao esforço humano anterior.</p>
+
+        <h3>4.4 Integração CI/CD consistente</h3>
+        <p>
+          Execuções automatizadas devem ser registradas corretamente via API.
+        </p>
+
+        <h2>5. Riscos e pontos de atenção</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Risco</th>
+              <th>Impacto</th>
+              <th>Solução</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tempo manual não registrado corretamente</td>
+              <td>Economia calculada incorreta</td>
+              <td>Padronizar uso de timer e métricas</td>
+            </tr>
+            <tr>
+              <td>Execuções automatizadas não identificadas</td>
+              <td>Subestima a economia real</td>
+              <td>Usar tags e usuários específicos de automação</td>
+            </tr>
+            <tr>
+              <td>Cases automatizados parcialmente</td>
+              <td>Cálculo misto e impreciso</td>
+              <td>Definir regra clara de automatização</td>
+            </tr>
+            <tr>
+              <td>Tempo manual muito variável</td>
+              <td>Distúrbios no KPI</td>
+              <td>Basear tempo médio em histórico real</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>6. Resumo executivo</h2>
+        <ul>
+          <li>Mede o tempo total economizado pela automação.</li>
+          <li>Depende do tempo médio manual corretamente calculado.</li>
+          <li>Indica ROI e maturidade do time em automação.</li>
+          <li>Ajuda no planejamento de capacidade e alocação.</li>
+          <li>É um indicador estratégico para evolução de QA.</li>
+        </ul>
+      </div>
+
+      <p><a href="kpis.html">⬅ Voltar</a></p>
+    </div>
+  </body>
+</html>

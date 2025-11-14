@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>KPI – Defeitos da Release (por Feature, Status e Severidade)</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+
+    <div id="content">
+      <h1>
+        KPI – Defeitos da Release<br />
+        (Total por Feature, Status e Severidade)
+      </h1>
+
+      <div class="section-block">
+        <h2>1. Objetivo do KPI</h2>
+        <p>
+          Medir o <strong>total de defeitos encontrados na release</strong> e
+          classificá-los por:
+        </p>
+        <ul>
+          <li><strong>Feature (funcionalidade)</strong></li>
+          <li>
+            <strong>Status</strong> (open, in progress, resolved, retest...)
+          </li>
+          <li>
+            <strong>Severidade</strong> (blocker, critical, major, minor...)
+          </li>
+        </ul>
+
+        <p>
+          Esse KPI permite identificar onde estão os maiores riscos, gargalos e
+          impactos da release, ajudando PO, QA e desenvolvimento na priorização
+          de correções.
+        </p>
+
+        <h2>2. Regras de Negócio</h2>
+
+        <h3>2.1 RN01 – Apenas defeitos criados dentro da release</h3>
+        <p>São considerados apenas os defeitos:</p>
+        <ul>
+          <li>abertos durante a release</li>
+          <li>ou relacionados a execuções da release (via Test Run)</li>
+        </ul>
+
+        <h3>2.2 RN02 – Classificação obrigatória</h3>
+        <p>Todo defeito deve possuir:</p>
+        <ul>
+          <li><strong>Feature</strong> (módulo funcional)</li>
+          <li><strong>Severidade</strong> (campo padrão ou customizado)</li>
+          <li><strong>Status</strong> atualizado</li>
+        </ul>
+
+        <h3>2.3 RN03 – Feature = suíte ou etiqueta</h3>
+        <p>A feature pode ser definida de duas formas:</p>
+        <ol>
+          <li>
+            <strong>Nome da suíte</strong> do case que originou o defeito
+            (recomendado)
+          </li>
+          <li><strong>Tag do case</strong> indicando a funcionalidade</li>
+        </ol>
+
+        <h3>2.4 RN04 – Defeitos duplicados</h3>
+        <p>
+          Duplicidades devem ser evitadas. Caso ocorram, apenas o defeito
+          principal deve ser contabilizado.
+        </p>
+
+        <h3>2.5 RN05 – Defeitos reabertos</h3>
+        <p>
+          Reaberturas são contabilizadas apenas uma vez no total geral, mas
+          podem gerar um KPI adicional (Reabertura).
+        </p>
+
+        <h2>3. Cálculo do KPI no WellnessQAReporter</h2>
+
+        <h3>3.1 Fonte dos dados</h3>
+        <ul>
+          <li><code>/defect</code> – lista de defeitos</li>
+          <li><code>/result</code> – link do resultado para o defeito</li>
+          <li><code>/suite</code> – para agrupar por feature</li>
+          <li><code>/case</code> – tags e metadados funcionais</li>
+        </ul>
+
+        <h3>3.2 Agrupamentos calculados</h3>
+        <p>Para cada defeito da release, o Reporter calcula:</p>
+        <ul>
+          <li><strong>Feature</strong> (com base na suíte ou tag)</li>
+          <li><strong>Status atual</strong></li>
+          <li><strong>Severidade</strong></li>
+        </ul>
+
+        <h3>3.3 Algoritmo</h3>
+        <ol>
+          <li>Coletar todos os defeitos da release.</li>
+          <li>Agrupar por funcionalidade (suite/tag).</li>
+          <li>Agrupar por status (Open, Fixed, Retest, Closed...).</li>
+          <li>Agrupar por severidade (Critical, Major, Minor...).</li>
+          <li>Gerar totais e percentuais.</li>
+        </ol>
+
+        <h2>4. Configuração necessária no Qase</h2>
+
+        <h3>4.1 Modelo de severidade padronizado</h3>
+        <p>A equipe deve utilizar severidades padronizadas, como:</p>
+        <ul>
+          <li><strong>Blocker</strong></li>
+          <li><strong>Critical</strong></li>
+          <li><strong>Major</strong></li>
+          <li><strong>Minor</strong></li>
+          <li><strong>Trivial</strong></li>
+        </ul>
+
+        <h3>4.2 Feature definida obrigatoriamente</h3>
+        <p>Pode ser implementado como:</p>
+        <ul>
+          <li>Um <strong>campo customizado</strong> "Feature" nos defeitos</li>
+          <li>Uso obrigatório de <strong>tags</strong> nos cases</li>
+          <li>
+            Estrutura organizada por <strong>Suites</strong> representando
+            módulos
+          </li>
+        </ul>
+
+        <h3>4.3 Atualização constante do status do defeito</h3>
+        <p>
+          O fluxo de status deve estar claro e ser seguido pela equipe de QA e
+          desenvolvimento.
+        </p>
+
+        <h3>4.4 Garantir que todo defeito esteja associado ao resultado</h3>
+        <p>
+          Ao registrar um defeito, o QA deve sempre associá-lo à execução que o
+          originou (campo “Result”).
+        </p>
+
+        <h2>5. Riscos e pontos de atenção</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Risco</th>
+              <th>Impacto</th>
+              <th>Solução</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Defeitos sem severidade</td>
+              <td>Impossível medir criticidade da release</td>
+              <td>Tornar o campo obrigatório</td>
+            </tr>
+            <tr>
+              <td>Defeitos sem feature definida</td>
+              <td>Não é possível associar problemas às funcionalidades</td>
+              <td>Organizar suites e tags</td>
+            </tr>
+            <tr>
+              <td>Defeitos sem vínculo com execução</td>
+              <td>Relatório perde rastreabilidade</td>
+              <td>Treinar equipe no fluxo correto</td>
+            </tr>
+            <tr>
+              <td>Uso inconsistente de status</td>
+              <td>Distorce métricas de andamento</td>
+              <td>Padronizar fluxo de status e treinar equipe</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>6. Resumo executivo</h2>
+        <ul>
+          <li>
+            O KPI mede quantidade e qualidade dos defeitos encontrados na
+            release.
+          </li>
+          <li>
+            Agrupa por funcionalidade, severidade e status para análise
+            completa.
+          </li>
+          <li>Requer disciplina no preenchimento de campos no Qase.</li>
+          <li>Indica claramente as áreas mais problemáticas e prioritárias.</li>
+        </ul>
+      </div>
+
+      <p><a href="kpis.html">⬅ Voltar</a></p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>KPI – Curva de Evolução (% Cobertura mapeada x entregue)</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+
+    <div id="content">
+      <h1>
+        KPI – Curva de Evolução<br />
+        (% Cobertura Mapeada x Entregue)
+      </h1>
+
+      <div class="section-block">
+        <h2>1. Objetivo do KPI</h2>
+        <p>
+          Este KPI mede a
+          <strong>evolução da execução da release ao longo do tempo</strong>,
+          comparando:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Escopo planejado</strong> (quantidade total de casos
+            mapeados para o ciclo)
+          </li>
+          <li>
+            <strong>Entrega real</strong> (quantidade de casos executados até
+            cada dia)
+          </li>
+        </ul>
+
+        <p>O resultado é uma curva que mostra se a equipe está:</p>
+
+        <ul>
+          <li>Adiantada</li>
+          <li>No ritmo esperado</li>
+          <li>Atrasada</li>
+        </ul>
+
+        <p>
+          É um KPI essencial para prever atrasos e ajustar capacidade durante o
+          ciclo.
+        </p>
+
+        <h2>2. Regras de Negócio</h2>
+
+        <h3>2.1 RN01 – Cobertura mapeada</h3>
+        <p>“Cobertura mapeada” significa:</p>
+        <ul>
+          <li>Total de casos planejados para a release (KPI 1 – Escopo)</li>
+          <li>Esse número é fixo ao longo da release</li>
+        </ul>
+
+        <h3>2.2 RN02 – Cobertura entregue</h3>
+        <p>
+          “Cobertura entregue” é o total de casos executados (qualquer status)
+          acumulados até uma data.
+        </p>
+
+        <p>Conta como entregue um case executado com:</p>
+        <ul>
+          <li>Passed</li>
+          <li>Failed</li>
+          <li>Retest</li>
+          <li>Blocked</li>
+          <li>Skipped</li>
+        </ul>
+
+        <h3>2.3 RN03 – Curva de evolução diária</h3>
+        <p>Para cada dia da release, o Reporter calcula:</p>
+
+        <p>
+          <strong>
+            % Entregue = (casos executados até o dia ÷ total de casos do escopo)
+            × 100
+          </strong>
+        </p>
+
+        <p>A curva completa mostra a evolução ao longo dos dias.</p>
+
+        <h3>2.4 RN04 – Execução duplicada</h3>
+        <p>
+          Se o case for executado mais de uma vez no mesmo dia → conta apenas 1
+          para o KPI.
+        </p>
+
+        <h3>2.5 RN05 – Alterações de escopo</h3>
+        <p>Se o escopo mudar (casos adicionados/removidos), o KPI deve:</p>
+
+        <ul>
+          <li><strong>Registrar a alteração na curva</strong></li>
+          <li>
+            <strong>Recalcular o percentual a partir da mudança</strong> —
+            prática recomendada
+          </li>
+        </ul>
+
+        <h2>3. Cálculo no WellnessQAReporter</h2>
+
+        <h3>3.1 Fonte dos dados</h3>
+        <ul>
+          <li>/plan – escopo da release</li>
+          <li>/run – execuções diárias</li>
+          <li>/result – resultados com timestamps</li>
+        </ul>
+
+        <h3>3.2 Algoritmo do Reporter</h3>
+        <ol>
+          <li>
+            Identificar o escopo total da release (casos únicos do Test Plan).
+          </li>
+          <li>Listar todos os resultados por data (via campo executed_at).</li>
+          <li>Agrupar execuções por dia.</li>
+          <li>Deduplicar execuções do mesmo case por dia.</li>
+          <li>Gerar acumulado de execuções ao longo do tempo.</li>
+          <li>
+            Para cada dia:
+            <br /><br />
+            <strong>
+              % Cobertura = acumulado_executado ÷ total_escopo × 100
+            </strong>
+          </li>
+        </ol>
+
+        <h2>4. Configuração necessária no Qase</h2>
+
+        <h3>4.1 Execuções com timestamp correto</h3>
+        <p>
+          O Qase registra automaticamente a data/hora da execução — isso é
+          essencial para o KPI.
+        </p>
+
+        <h3>4.2 Execução somente via Test Plans</h3>
+        <p>
+          Execuções avulsas fora de planos não podem ser incluídas na curva.
+        </p>
+
+        <h3>4.3 Disciplina na execução diária</h3>
+        <p>
+          Para que a curva seja precisa, execuções devem ser distribuídas ao
+          longo dos dias, e não acumuladas ou postadas retroativamente.
+        </p>
+
+        <h3>4.4 Versão e ambiente padronizados</h3>
+        <p>Isso evita mistura de execuções de releases diferentes.</p>
+
+        <h2>5. Riscos e pontos de atenção</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Risco</th>
+              <th>Impacto</th>
+              <th>Solução</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Execução concentrada em poucos dias</td>
+              <td>Curva distorcida; não reflete evolução real</td>
+              <td>Seguir planejamento diário de execução</td>
+            </tr>
+            <tr>
+              <td>Execuções sem Test Plan</td>
+              <td>Casos fora do KPI</td>
+              <td>Obrigatoriedade de uso de Plans</td>
+            </tr>
+            <tr>
+              <td>Alterações de escopo sem controle</td>
+              <td>Percentuais inconsistentes</td>
+              <td>Comunicar mudanças de escopo ao QA Lead</td>
+            </tr>
+            <tr>
+              <td>Execuções duplicadas no mesmo dia</td>
+              <td>Curva inflada artificialmente</td>
+              <td>Deduplicação pela regra do Reporter</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>6. Resumo executivo</h2>
+        <ul>
+          <li>Mede a evolução do ciclo de testes diariamente.</li>
+          <li>Compara escopo planejado x execução real.</li>
+          <li>Ajuda a prever atrasos e planejar capacidade.</li>
+          <li>Requer governança na execução e no escopo.</li>
+          <li>É um dos KPIs mais importantes de acompanhamento diário.</li>
+        </ul>
+      </div>
+
+      <p><a href="kpis.html">⬅ Voltar</a></p>
+    </div>
+  </body>
+</html>

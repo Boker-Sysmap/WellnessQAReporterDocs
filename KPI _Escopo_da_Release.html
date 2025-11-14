@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>KPI – Escopo da Release (Casos Planejados)</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+
+    <div id="content">
+      <h1>KPI – Escopo: Número total de casos planejados para a release</h1>
+
+      <div class="section-block">
+        <h2>1. Objetivo do KPI</h2>
+        <p>
+          Indicar
+          <strong>quantos casos de teste fazem parte da release</strong>, ou
+          seja, qual é o <em>escopo planejado</em> do ciclo.
+        </p>
+
+        <p>Esse KPI é a base para outros indicadores, como:</p>
+        <ul>
+          <li>Cobertura planejada x executada</li>
+          <li>Percentual de execução</li>
+          <li>Percentual de casos bloqueados</li>
+          <li>Percentual de falhas por release</li>
+          <li>Tendência de retrabalho e regressão</li>
+        </ul>
+
+        <h2>2. Regras de Negócio</h2>
+
+        <h3>2.1 RN01 – Definição de Escopo da Release</h3>
+        <p>
+          O <strong>Escopo de uma Release</strong> é composto por
+          <strong>todos os Test Cases associados a um Test Plan</strong> que
+          esteja <strong>relacionado à Release</strong>, conforme configurado no
+          Qase.
+        </p>
+
+        <p>
+          <strong>Definição formal:</strong><br />
+          <em>
+            Escopo = soma de todos os casos de teste contidos em todos os Test
+            Plans vinculados à Release, desconsiderando duplicidades.
+          </em>
+        </p>
+
+        <h3>2.2 RN02 – Deduplicação</h3>
+        <p>
+          Se um mesmo Test Case aparecer em mais de um Test Plan dentro da mesma
+          release, ele deve ser contado <strong>apenas uma vez</strong> no KPI
+          de escopo.
+        </p>
+
+        <h3>2.3 RN03 – Versionamento (Android/iOS) e Idiomas</h3>
+
+        <h4>Cenário recomendado (melhor prática)</h4>
+        <p>
+          Utilizar <strong>um único Test Case</strong> e controlar variações via
+          tags de plataforma e idioma, por exemplo:
+        </p>
+        <ul>
+          <li>Plataforma: <code>android</code>, <code>ios</code></li>
+          <li>Idioma: <code>pt</code>, <code>en</code>, <code>es</code></li>
+        </ul>
+        <p>
+          Neste modelo, o case conta <strong>uma única vez</strong> no escopo da
+          release. As diferenças são controladas por tags ou pelo contexto de
+          execução.
+        </p>
+
+        <h4>Cenário alternativo (cliente exige separação)</h4>
+        <p>
+          Se o mesmo cenário for cadastrado como cases diferentes (por exemplo,
+          um case para Android e outro para iOS), cada case passa a ser uma
+          entidade independente no Qase e, portanto, conta
+          <strong>separadamente</strong> no escopo.
+        </p>
+        <p>Exemplos de nomes de cases:</p>
+        <ul>
+          <li>[Android] Pagamentos – Pix – Sucesso</li>
+          <li>[iOS] Pagamentos – Pix – Sucesso</li>
+        </ul>
+
+        <h3>2.4 RN04 – Casos fora do Test Plan</h3>
+        <p>
+          Casos de teste que
+          <strong>não estão vinculados a nenhum Test Plan</strong>, mesmo
+          existindo no projeto, <strong>não fazem parte</strong> do escopo da
+          release.
+        </p>
+
+        <h3>2.5 RN05 – Casos removidos do Plan</h3>
+        <p>
+          Se um QA remover um case manualmente de um Test Plan durante o ciclo,
+          esse case <strong>deixa de ser contabilizado</strong> no escopo da
+          release a partir da remoção.
+        </p>
+
+        <h2>3. Cálculo do KPI no WellnessQAReporter</h2>
+
+        <h3>3.1 Fonte de Dados (API Qase)</h3>
+        <p>
+          Para calcular esse KPI, o WellnessQAReporter utiliza os seguintes
+          recursos da API do Qase (ou equivalentes):
+        </p>
+        <ul>
+          <li><code>/plan</code> – lista de Test Plans</li>
+          <li><code>/plan/{id}</code> – detalhes do plano e seus cases</li>
+          <li><code>/case</code> – metadados dos Test Cases</li>
+          <li><code>/suite</code> – opcional, para agrupamentos por suíte</li>
+          <li>
+            Metadados de release – via campo de release do Plan, tags ou
+            padronização de nomes
+          </li>
+        </ul>
+
+        <h3>3.2 Lógica de cálculo</h3>
+        <ol>
+          <li>Identificar a release alvo (por nome, versão e/ou datas).</li>
+          <li>Localizar todos os Test Plans vinculados a essa release.</li>
+          <li>Coletar todos os IDs de Test Case contidos nesses planos.</li>
+          <li>
+            Inserir os IDs em uma estrutura que elimine duplicidade (por
+            exemplo, um <em>set</em>).
+          </li>
+          <li>
+            O total de elementos únicos nesse conjunto é o
+            <strong>Escopo Total da Release</strong>.
+          </li>
+        </ol>
+
+        <h2>4. Configuração necessária no Qase</h2>
+
+        <h3>4.1 Criação de Releases formais</h3>
+        <p>
+          É obrigatório usar o módulo de <strong>Releases</strong> do Qase para
+          que o KPI funcione corretamente.
+        </p>
+
+        <p>Cada release deve conter, no mínimo:</p>
+        <ul>
+          <li>Nome padronizado (ex.: <em>Fully – 2025.11.15 (R24)</em>)</li>
+          <li>Datas de início e fim</li>
+          <li>Status adequado (ativo, em andamento, concluído etc.)</li>
+        </ul>
+        <p>
+          Sem a criação formal de releases, o Reporter não consegue consolidar o
+          escopo corretamente.
+        </p>
+
+        <h3>4.2 Associação de Test Plans à Release</h3>
+        <p>
+          Em cada Test Plan, é necessário preencher o campo de
+          <strong>Release</strong>.
+        </p>
+        <p>Passos gerais:</p>
+        <ol>
+          <li>Acessar o Test Plan.</li>
+          <li>Editar o plano.</li>
+          <li>Selecionar a Release correspondente no campo apropriado.</li>
+          <li>Salvar o plano.</li>
+        </ol>
+        <p>
+          Planos não associados a nenhuma release não serão considerados no
+          cálculo deste KPI.
+        </p>
+
+        <h3>4.3 Evitar execuções avulsas</h3>
+        <p>
+          Para manter o KPI íntegro, os testes devem ser executados a partir de
+          <strong>Runs vinculadas a Test Plans</strong>.
+        </p>
+        <p>
+          Execuções “soltas” (sem Plan) devem ser desencorajadas por processo,
+          pois dificultam rastreabilidade e distorcem os indicadores.
+        </p>
+
+        <h3>4.4 Padronização de tags</h3>
+        <p>
+          Recomenda-se uma lista oficial de tags para controlar plataforma,
+          idioma e outras dimensões relevantes, por exemplo:
+        </p>
+        <ul>
+          <li><code>android</code></li>
+          <li><code>ios</code></li>
+          <li><code>pt</code></li>
+          <li><code>en</code></li>
+          <li><code>es</code></li>
+        </ul>
+        <p>
+          Isso permite, futuramente, desdobrar o KPI de escopo por plataforma ou
+          idioma, se necessário.
+        </p>
+
+        <h3>4.5 Padrão de nomenclatura de suítes e cases</h3>
+        <p>Exemplo de padrão sugerido:</p>
+        <ul>
+          <li>Suítes: <em>[Módulo] – [Submódulo]</em></li>
+          <li>
+            Cases: <em>[Funcionalidade] – [Cenário] – [Especificidade]</em>
+          </li>
+        </ul>
+        <p>Exemplos:</p>
+        <ul>
+          <li>Suite: Pagamentos – Pix</li>
+          <li>Case: Pagamentos – Pix – Sucesso</li>
+        </ul>
+        <p>
+          Isso facilita o agrupamento por funcionalidade, a leitura dos
+          relatórios e comparações entre projetos (Fully x Chubb).
+        </p>
+
+        <h3>4.6 Organização Android/iOS</h3>
+
+        <h4>Opção A – Melhor prática (case único com tags)</h4>
+        <ul>
+          <li>Case único representando o cenário de negócio.</li>
+          <li>Uso de tags para diferenciar plataforma (android/ios).</li>
+          <li>Execuções diferenciadas por ambiente na Run, se necessário.</li>
+        </ul>
+
+        <h4>Opção B – Estrutura separada (cenário atual)</h4>
+        <ul>
+          <li>Cases duplicados por plataforma.</li>
+          <li>
+            Cada case conta individualmente no escopo da release (um para
+            Android, outro para iOS).
+          </li>
+          <li>
+            Uso de prefixos no nome para facilitar identificação, por exemplo:
+            <ul>
+              <li>[Android] Pagamentos – Pix – Sucesso</li>
+              <li>[iOS] Pagamentos – Pix – Sucesso</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h2>5. Riscos e pontos de atenção</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Problema de configuração / processo</th>
+              <th>Risco para o KPI</th>
+              <th>Ação recomendada</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Execuções de teste sem uso de Test Plan</td>
+              <td>Perda de rastreabilidade e escopo incompleto</td>
+              <td>
+                Orientar equipe a sempre usar Test Plans vinculados à release
+              </td>
+            </tr>
+            <tr>
+              <td>Planos não associados a nenhuma release</td>
+              <td>Release aparece com escopo zero ou subdimensionado</td>
+              <td>
+                Treinar equipe para sempre selecionar a release no cadastro do
+                plano
+              </td>
+            </tr>
+            <tr>
+              <td>Casos duplicados sem necessidade</td>
+              <td>Escopo inflado e indicadores distorcidos</td>
+              <td>
+                Revisar estrutura de cases e adotar uso de tags ao invés de
+                duplicação
+              </td>
+            </tr>
+            <tr>
+              <td>Nomenclatura inconsistente</td>
+              <td>Dificuldade para agrupar métricas por funcionalidade</td>
+              <td>
+                Definir e comunicar um padrão oficial de nomenclatura de suites
+                e cases
+              </td>
+            </tr>
+            <tr>
+              <td>Tags usadas de forma diferente entre membros da equipe</td>
+              <td>Métricas por idioma/plataforma imprecisas ou quebradas</td>
+              <td>
+                Criar e divulgar uma lista oficial de tags permitidas e exemplos
+                de uso
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>6. Resumo executivo</h2>
+        <ul>
+          <li>
+            O escopo da release é definido pelos Test Cases presentes nos Test
+            Plans vinculados à release.
+          </li>
+          <li>
+            O WellnessQAReporter deduplica automaticamente cases repetidos em
+            mais de um plano.
+          </li>
+          <li>
+            É obrigatório:
+            <ul>
+              <li>Usar releases formais no Qase;</li>
+              <li>Associar todos os Test Plans à release correspondente;</li>
+              <li>Evitar execuções avulsas fora de planos.</li>
+            </ul>
+          </li>
+          <li>
+            Padronização de nomenclaturas e tags é essencial para relatórios
+            limpos e comparáveis.
+          </li>
+        </ul>
+      </div>
+
+      <p><a href="kpis.html">⬅ Voltar</a></p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>KPI – Cobertura da Release (% de casos executados)</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+
+    <div id="content">
+      <h1>KPI – Cobertura da Release (% de casos executados)</h1>
+
+      <div class="section-block">
+        <h2>1. Objetivo do KPI</h2>
+        <p>
+          Medir o <strong>progresso real de execução da release</strong>,
+          indicando qual percentual do escopo planejado já foi executado ao
+          menos uma vez.
+        </p>
+
+        <p>Fórmula:</p>
+        <p>
+          <strong>
+            Cobertura (%) = (Casos executados / Casos planejados) × 100
+          </strong>
+        </p>
+
+        <p>Este KPI permite acompanhar:</p>
+        <ul>
+          <li>A evolução da execução ao longo da release</li>
+          <li>Se o ciclo está aderente ao cronograma</li>
+          <li>Riscos de atraso na entrega</li>
+          <li>Gargalos em determinadas funcionalidades</li>
+        </ul>
+
+        <h2>2. Regras de Negócio</h2>
+
+        <h3>2.1 RN01 – Definição de “caso executado”</h3>
+        <p>
+          Um Test Case é considerado <strong>executado</strong> quando aparece
+          em uma <strong>Test Run pertencente a um Test Plan da release</strong>
+          — independentemente do resultado (Passed, Failed, Blocked etc.).
+        </p>
+
+        <h3>2.2 RN02 – Considerar apenas o primeiro resultado</h3>
+        <p>
+          Mesmo que um case seja executado várias vezes na release, ele conta
+          apenas <strong>uma vez</strong> para o KPI de cobertura.
+        </p>
+
+        <h3>2.3 RN03 – Casos não executados</h3>
+        <p>
+          Qualquer case pertencente ao escopo da release que não tenha execução
+          registrada em nenhuma Run ⇒ <strong>conta como não executado</strong>.
+        </p>
+
+        <h3>2.4 RN04 – Casos ignorados (skipped / não aplicáveis)</h3>
+        <p>
+          Casos marcados como <em>skipped</em> ou “não aplicáveis” ainda assim
+          são considerados “executados” pois a equipe já validou que não devem
+          ser aplicados naquele ciclo.
+        </p>
+
+        <h3>2.5 RN05 – Casos removidos do Test Plan</h3>
+        <p>
+          Se um case foi removido de um Test Plan durante o ciclo, ele deixa de
+          fazer parte do escopo e não entra no cálculo.
+        </p>
+
+        <h2>3. Cálculo do KPI no WellnessQAReporter</h2>
+
+        <h3>3.1 Fonte dos dados (API Qase)</h3>
+        <ul>
+          <li><code>/plan</code> – Test Plans da release</li>
+          <li><code>/plan/{id}</code> – lista de cases por plano</li>
+          <li><code>/run</code> – Test Runs executadas</li>
+          <li><code>/result</code> – resultados de cada execução de case</li>
+        </ul>
+
+        <h3>3.2 Lógica de cálculo</h3>
+        <ol>
+          <li>Identificar o escopo total (KPI 1).</li>
+          <li>Reunir todas as Runs pertencentes aos Test Plans da release.</li>
+          <li>
+            Mapear todos os <strong>case_id</strong> que possuem qualquer
+            resultado.
+          </li>
+          <li>
+            Inserir esses IDs em um <em>set</em> para evitar duplicidades.
+          </li>
+          <li>
+            Dividir o número de cases executados pelo escopo total e aplicar a
+            fórmula.
+          </li>
+        </ol>
+
+        <h2>4. Configuração necessária no Qase</h2>
+
+        <h3>4.1 Test Plans devem estar vinculados à release</h3>
+        <p>
+          Se um plano não estiver associado à release => suas execuções
+          <strong>não entram</strong> no cálculo.
+        </p>
+
+        <h3>4.2 Todos os testes devem ser executados via Test Plan</h3>
+        <p>
+          Execuções avulsas (<em>unscripted runs</em>) não contam cobertura,
+          pois não têm vínculo com o escopo planejado.
+        </p>
+
+        <h3>4.3 Criar Runs sempre a partir do Test Plan</h3>
+        <p>Isso garante rastreabilidade e permite cálculo automatizado.</p>
+
+        <h3>4.4 Não duplicar cases sem necessidade</h3>
+        <p>Duplicações artificiais aumentam o escopo e derrubam a cobertura.</p>
+
+        <h2>5. Riscos e pontos de atenção</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Problema</th>
+              <th>Impacto no KPI</th>
+              <th>Solução recomendada</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Execução de testes fora de Test Plans</td>
+              <td>Cobertura fica artificialmente baixa</td>
+              <td>Forçar execução via planos</td>
+            </tr>
+            <tr>
+              <td>Runs criadas sem vínculo com a release</td>
+              <td>Execuções não são contabilizadas</td>
+              <td>Garantir configuração correta no Qase</td>
+            </tr>
+            <tr>
+              <td>Casos duplicados indevidamente</td>
+              <td>Escopo inflado → cobertura reduzida</td>
+              <td>Usar tags para separar variantes</td>
+            </tr>
+            <tr>
+              <td>Cases esquecidos no final do ciclo</td>
+              <td>Cobertura estagna antes do fechamento</td>
+              <td>Checklist diário de execução</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>6. Resumo executivo</h2>
+        <ul>
+          <li>
+            A cobertura mede quantos casos planejados já foram executados.
+          </li>
+          <li>
+            O WellnessQAReporter identifica execuções por meio das Runs dos
+            planos vinculados à release.
+          </li>
+          <li>Execuções avulsas fora de planos não contam.</li>
+          <li>Deduplicação garante que cada case conta apenas uma vez.</li>
+        </ul>
+      </div>
+
+      <p><a href="kpis.html">⬅ Voltar</a></p>
+    </div>
+  </body>
+</html>

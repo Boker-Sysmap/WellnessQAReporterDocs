@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>KPI – Tempo Médio de Resolução de Defeitos</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+
+    <div id="content">
+      <h1>
+        KPI – Tempo Médio de Resolução de Defeitos<br />
+        (Defeitos abertos na release)
+      </h1>
+
+      <div class="section-block">
+        <h2>1. Objetivo do KPI</h2>
+        <p>
+          Este KPI mede o
+          <strong
+            >tempo médio que a equipe leva para resolver defeitos descobertos na
+            release</strong
+          >. Ele é essencial para avaliar:
+        </p>
+
+        <ul>
+          <li>A eficiência do time de desenvolvimento</li>
+          <li>A velocidade de correção</li>
+          <li>Riscos de estouro de prazo</li>
+          <li>A criticidade da release</li>
+        </ul>
+
+        <p>
+          É um dos indicadores mais relevantes para medir a
+          <strong>responsividade</strong> e <strong>agilidade</strong> da equipe
+          diante de problemas encontrados durante o ciclo.
+        </p>
+
+        <h2>2. Regras de Negócio</h2>
+
+        <h3>2.1 RN01 – Defeitos considerados</h3>
+        <p>Devem ser incluídos apenas defeitos:</p>
+        <ul>
+          <li><strong>Abertos durante a release</strong></li>
+          <li>Ou associados a execuções pertencentes à release</li>
+        </ul>
+
+        <h3>2.2 RN02 – Tempo de resolução</h3>
+        <p>O tempo é calculado com base na diferença entre:</p>
+
+        <p>
+          <strong>Data de abertura → Data de resolução</strong>
+        </p>
+
+        <p>A resolução é identificada quando o status muda para:</p>
+        <ul>
+          <li><strong>Resolved</strong></li>
+          <li><strong>Fixed</strong></li>
+          <li><strong>Done</strong></li>
+          <li>Ou equivalente configurado pelo cliente</li>
+        </ul>
+
+        <h3>2.3 RN03 – Defeitos não resolvidos</h3>
+        <p>Se o defeito ainda estiver aberto, ele deve ser:</p>
+        <ul>
+          <li><strong>Ignorado no KPI</strong> (recomendado), ou</li>
+          <li>
+            Considerado como “em aberto” em um KPI adicional (ex.: Lead Time em
+            aberto)
+          </li>
+        </ul>
+
+        <h3>2.4 RN04 – Defeitos reabertos</h3>
+        <p>Se um defeito for reaberto:</p>
+        <ul>
+          <li>
+            O tempo é calculado entre a <strong>última reabertura</strong> e a
+            <strong>data de resolução final</strong>.
+          </li>
+        </ul>
+
+        <h3>2.5 RN05 – Unidade de tempo</h3>
+        <p>O KPI deve ser apresentado em:</p>
+
+        <ul>
+          <li><strong>Horas</strong> quando < 24h</li>
+          <li><strong>Dias</strong> quando maior</li>
+        </ul>
+
+        <h2>3. Cálculo do KPI no WellnessQAReporter</h2>
+
+        <h3>3.1 Fonte dos dados</h3>
+        <ul>
+          <li><code>/defect</code> – data de criação e status atual</li>
+          <li>
+            <code>/defect/{id}/history</code> (se disponível) – para reaberturas
+          </li>
+          <li><code>/result</code> – ligação com casos da release</li>
+          <li><code>/run</code> – identificação da release</li>
+        </ul>
+
+        <h3>3.2 Algoritmo completo</h3>
+        <ol>
+          <li>Identificar todos os defeitos da release.</li>
+          <li>Excluir defeitos ainda não resolvidos.</li>
+          <li>
+            Para defeitos reabertos, usar a data da última mudança para
+            “reopened”.
+          </li>
+          <li>
+            Calcular:
+            <br />
+            <em>
+              Tempo de resolução = data_resolvido – data_aberto (ou reaberto)
+            </em>
+          </li>
+          <li>Somar o tempo de resolução de todos os defeitos resolvidos.</li>
+          <li>Dividir pelo total de defeitos resolvidos na release.</li>
+        </ol>
+
+        <h2>4. Configuração necessária no Qase</h2>
+
+        <h3>4.1 Status de defeito padronizados</h3>
+        <p>É essencial que a equipe utilize status padronizados como:</p>
+        <ul>
+          <li>Open</li>
+          <li>In Progress</li>
+          <li>Resolved / Fixed</li>
+          <li>Reopened</li>
+          <li>Closed</li>
+        </ul>
+
+        <h3>4.2 Associar sempre um defeito ao resultado do teste</h3>
+        <p>
+          Isso garante que o Reporter saiba que esse defeito pertence ao ciclo.
+        </p>
+
+        <h3>4.3 Uso consistente das datas</h3>
+        <p>
+          O Qase registra automaticamente a data de criação e mudança de status,
+          portanto basta seguir o fluxo corretamente.
+        </p>
+
+        <h3>4.4 Evitar marcar defeitos como “Resolved” antes de corrigir</h3>
+        <p>Isso distorce o KPI. O status deve refletir o estado real.</p>
+
+        <h2>5. Riscos e pontos de atenção</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Risco</th>
+              <th>Impacto</th>
+              <th>Solução</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Status atualizado tardiamente</td>
+              <td>Tempo de resolução fica maior do que o real</td>
+              <td>Treinar equipe sobre fluxo de status</td>
+            </tr>
+            <tr>
+              <td>Defeitos reabertos sem histórico claro</td>
+              <td>Distorção no cálculo</td>
+              <td>Manter histórico de status correto</td>
+            </tr>
+            <tr>
+              <td>Defeitos não vinculados à execução</td>
+              <td>KPI não reflete a qualidade real da release</td>
+              <td>Vincular defeito ao resultado</td>
+            </tr>
+            <tr>
+              <td>Uso inconsistente de status de resolução</td>
+              <td>Difícil identificar quando realmente foi resolvido</td>
+              <td>Padronizar status de resolução com governança</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>6. Resumo executivo</h2>
+        <ul>
+          <li>
+            Mede o tempo médio necessário para resolver defeitos da release.
+          </li>
+          <li>Considera apenas defeitos resolvidos.</li>
+          <li>Reaberturas são tratadas com base na última reabertura.</li>
+          <li>Depende do uso correto dos status no Qase.</li>
+          <li>
+            É um indicador crítico para avaliar a agilidade do time e a saúde da
+            release.
+          </li>
+        </ul>
+      </div>
+
+      <p><a href="kpis.html">⬅ Voltar</a></p>
+    </div>
+  </body>
+</html>

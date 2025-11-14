@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>KPI – Estabilidade da Release (% de falhas por motivo)</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+
+    <div id="content">
+      <h1>KPI – Estabilidade da Release (% de falhas por motivo)</h1>
+
+      <div class="section-block">
+        <h2>1. Objetivo do KPI</h2>
+        <p>
+          Este KPI mede a <strong>qualidade e estabilidade da release</strong>
+          analisando a proporção de falhas por motivo, como:
+        </p>
+
+        <ul>
+          <li><strong>Defeito real no produto</strong></li>
+          <li><strong>Erro de script</strong> (teste mal escrito)</li>
+          <li>
+            <strong>Falha de ambiente</strong> (instabilidade, login, rede)
+          </li>
+          <li><strong>Dado inconsistente</strong></li>
+          <li><strong>Requisito incorreto/desatualizado</strong></li>
+          <li>Outros motivos configurados pela equipe</li>
+        </ul>
+
+        <p>
+          O objetivo é identificar onde estão as causas raízes das falhas e
+          medir os efeitos de estabilidade da entrega.
+        </p>
+
+        <h2>2. Regras de Negócio</h2>
+
+        <h3>2.1 RN01 – Considerar apenas casos com resultado “Failed”</h3>
+        <p>
+          Apenas execuções com status <strong>Failed</strong> são analisadas no
+          KPI de Estabilidade.
+        </p>
+
+        <h3>2.2 RN02 – Cada falha deve ter um “motivo da falha”</h3>
+        <p>
+          A equipe deve registrar o motivo da falha no campo de
+          <strong>Defect Reason</strong>, <strong>Failure Reason</strong> ou
+          campo equivalente configurado no Qase.
+        </p>
+
+        <h3>2.3 RN03 – Distribuição percentual</h3>
+        <p>
+          O cálculo é sempre baseado na proporção entre a quantidade de falhas
+          por motivo e o total de falhas da release:
+        </p>
+
+        <p>
+          <strong>
+            % Motivo = (Falhas com o motivo X / Total de falhas) × 100
+          </strong>
+        </p>
+
+        <h3>2.4 RN04 – Execução mais recente</h3>
+        <p>
+          Caso o case tenha falhado múltiplas vezes, considera-se a
+          <strong>falha mais recente</strong> na release.
+        </p>
+
+        <h3>2.5 RN05 – Falhas sem motivo</h3>
+        <p>
+          Se o tester não registrar o motivo, o Reporter contabiliza como
+          <strong>“Sem classificação”</strong>.
+        </p>
+
+        <h2>3. Cálculo do KPI no WellnessQAReporter</h2>
+
+        <h3>3.1 Fonte dos dados</h3>
+        <ul>
+          <li><code>/run</code> – runs da release</li>
+          <li><code>/result</code> – resultados com motivo da falha</li>
+          <li>
+            Campo personalizado (custom field) configurado no Qase para
+            registrar o motivo
+          </li>
+        </ul>
+
+        <h3>3.2 Algoritmo</h3>
+        <ol>
+          <li>Coletar todas as falhas (Failed) das Runs da release.</li>
+          <li>Identificar o motivo da falha em cada resultado.</li>
+          <li>Agrupar falhas por categoria de motivo.</li>
+          <li>Somar falhas por motivo.</li>
+          <li>
+            Calcular a porcentagem de cada motivo sobre o total de falhas.
+          </li>
+        </ol>
+
+        <h2>4. Configuração necessária no Qase</h2>
+
+        <h3>4.1 Criar um custom field “Motivo da Falha”</h3>
+        <p>O campo deve ser:</p>
+        <ul>
+          <li><strong>Tipo:</strong> Lista (Dropdown)</li>
+          <li><strong>Obrigatório quando Status = Failed</strong></li>
+        </ul>
+
+        <p>Valores sugeridos:</p>
+        <ul>
+          <li>Defeito no produto</li>
+          <li>Erro de script</li>
+          <li>Falha de ambiente</li>
+          <li>Problema de dados</li>
+          <li>Requisito desatualizado</li>
+          <li>Outros</li>
+        </ul>
+
+        <h3>4.2 Torne o campo obrigatório</h3>
+        <p>
+          Isso evita que falhas sejam registradas sem motivo, reduzindo “Sem
+          classificação”.
+        </p>
+
+        <h3>4.3 Uso de Test Plans e Runs vinculadas à Release</h3>
+        <p>
+          Somente resultados pertencentes à release são considerados — logo, as
+          Runs precisam estar vinculadas aos Test Plans da release.
+        </p>
+
+        <h3>4.4 Treinar a equipe para preenchimento consistente</h3>
+        <p>
+          KPIs de estabilidade dependem fortemente da boa disciplina nos motivos
+          das falhas.
+        </p>
+
+        <h2>5. Riscos e pontos de atenção</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Risco</th>
+              <th>Impacto</th>
+              <th>Ação recomendada</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Falhas sem motivo registrado</td>
+              <td>KPI fica impreciso e sem valor analítico</td>
+              <td>Tornar o campo obrigatório no Qase</td>
+            </tr>
+            <tr>
+              <td>Uso inconsistente dos motivos</td>
+              <td>Distribuição distorcida</td>
+              <td>
+                Criar uma documentação de boas práticas e exemplos por motivo
+              </td>
+            </tr>
+            <tr>
+              <td>Execuções fora de Plans</td>
+              <td>Falhas ignoradas pelo Reporter</td>
+              <td>Executar apenas via Test Plans</td>
+            </tr>
+            <tr>
+              <td>Motivos genéricos demais (ex.: “outros”)</td>
+              <td>Dificuldade de análise</td>
+              <td>Revisar periodicamente a lista de motivos</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>6. Resumo executivo</h2>
+        <ul>
+          <li>
+            O KPI mede a saúde da release analisando falhas por causa raiz.
+          </li>
+          <li>
+            Depende de um campo personalizado obrigatório no Qase para registrar
+            motivo.
+          </li>
+          <li>Falhas sem motivo são agrupadas como “Sem classificação”.</li>
+          <li>
+            É essencial treinamento e padronização para garantir a qualidade do
+            indicador.
+          </li>
+        </ul>
+      </div>
+
+      <p><a href="kpis.html">⬅ Voltar</a></p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>
+      KPI – Resultados da Release (Passed / Failed / Blocked / Retest)
+    </title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+
+    <div id="content">
+      <h1>KPI – Resultados da Release (Passed, Failed, Blocked, Retest)</h1>
+
+      <div class="section-block">
+        <h2>1. Objetivo do KPI</h2>
+        <p>
+          Este KPI mede a <strong>distribuição dos resultados</strong> de todos
+          os casos que foram executados na release, permitindo entender:
+        </p>
+
+        <ul>
+          <li>Qualidade geral da build</li>
+          <li>Risco de entrega</li>
+          <li>Quantidade de falhas por funcionalidade</li>
+          <li>Gargalos e bloqueios no ciclo</li>
+        </ul>
+
+        <p>Os principais indicadores são:</p>
+        <ul>
+          <li><strong>% Passed</strong> – testes que passaram</li>
+          <li><strong>% Failed</strong> – testes que falharam</li>
+          <li><strong>% Blocked</strong> – testes impedidos de execução</li>
+          <li><strong>% Retest</strong> – testes pendentes de novo teste</li>
+        </ul>
+
+        <h2>2. Regras de Negócio</h2>
+
+        <h3>2.1 RN01 – Base de cálculo</h3>
+        <p>
+          Apenas casos que foram executados ao menos uma vez entram neste KPI.
+        </p>
+
+        <p>
+          <strong>Base = Total de casos executados na release</strong>
+        </p>
+
+        <h3>2.2 RN02 – Último resultado válido</h3>
+        <p>
+          Se um case for executado várias vezes, conta o
+          <strong>resultado mais recente</strong> na release.
+        </p>
+
+        <h3>2.3 RN03 – Resultados possíveis considerados</h3>
+        <p>Os resultados incluídos são:</p>
+        <ul>
+          <li>Passed</li>
+          <li>Failed</li>
+          <li>Blocked</li>
+          <li>Retest</li>
+        </ul>
+
+        <h3>2.4 RN04 – Casos sem execução</h3>
+        <p>
+          Casos não executados não entram no denominador e não afetam o KPI.
+          Eles pertencem ao KPI de cobertura.
+        </p>
+
+        <h3>2.5 RN05 – Casos “skipped”</h3>
+        <p>
+          Casos skipped contam como executados, e entram na categoria
+          <strong>Blocked</strong> (impedidos).
+        </p>
+
+        <h2>3. Cálculo do KPI no WellnessQAReporter</h2>
+
+        <h3>3.1 Fonte dos dados</h3>
+        <ul>
+          <li><code>/plan</code> – Test Plans da release</li>
+          <li><code>/run</code> – Test Runs do ciclo</li>
+          <li><code>/result</code> – resultados de execuções</li>
+        </ul>
+
+        <h3>3.2 Algoritmo</h3>
+        <ol>
+          <li>
+            Identificar todas as Runs associadas aos Test Plans da release.
+          </li>
+          <li>
+            Para cada <code>case_id</code> executado, considerar o resultado
+            mais recente.
+          </li>
+          <li>
+            Contabilizar quantos estão marcados como Passed, Failed, Blocked ou
+            Retest.
+          </li>
+          <li>
+            Gerar os percentuais:
+            <br />
+            <em>%Categoria = (Qtd da categoria / Total executados) × 100</em>
+          </li>
+        </ol>
+
+        <h2>4. Configuração necessária no Qase</h2>
+
+        <h3>4.1 Execução sempre via Test Plan</h3>
+        <p>
+          Execuções avulsas fora de um Test Plan não são consideradas nos KPIs
+          de release.
+        </p>
+
+        <h3>4.2 Atualizar corretamente o status nas Runs</h3>
+        <p>
+          Muitas equipes deixam Retest, Blocked ou Skipped sem revisão. Isso
+          distorce os indicadores.
+        </p>
+
+        <h3>4.3 Runs devem estar associadas à release</h3>
+        <p>
+          Caso contrário, o Reporter não conseguirá considerar os resultados no
+          ciclo.
+        </p>
+
+        <h3>4.4 Não duplicar execution runs sem necessidade</h3>
+        <p>
+          Execuções duplicadas podem gerar contagem incorreta. A equipe deve
+          seguir um fluxo claro de execução.
+        </p>
+
+        <h2>5. Riscos e pontos de atenção</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Problema</th>
+              <th>Impacto</th>
+              <th>Ação recomendada</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Resultados desatualizados</td>
+              <td>Indicadores irreais de qualidade</td>
+              <td>Forçar revisão dos status ao final da execução</td>
+            </tr>
+            <tr>
+              <td>Runs não associadas à release</td>
+              <td>Resultados não entram no KPI</td>
+              <td>Padronizar criação de runs via Test Plan</td>
+            </tr>
+            <tr>
+              <td>Casos marcados como Blocked indevidamente</td>
+              <td>Aumenta artificialmente o índice de impedimentos</td>
+              <td>Revisão diária das execuções bloqueadas</td>
+            </tr>
+            <tr>
+              <td>Retests sem decisão</td>
+              <td>Indicador de retrabalho afetado</td>
+              <td>
+                Forçar conclusão dos retests antes do fechamento da release
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>6. Resumo executivo</h2>
+        <ul>
+          <li>
+            Este KPI revela a qualidade atual da release e onde estão os maiores
+            riscos.
+          </li>
+          <li>
+            São considerados apenas casos executados, e sempre o resultado mais
+            recente.
+          </li>
+          <li>
+            A integridade das Runs e a associação com a release são fundamentais
+            para o cálculo.
+          </li>
+        </ul>
+      </div>
+
+      <p><a href="kpis.html">⬅ Voltar</a></p>
+    </div>
+  </body>
+</html>

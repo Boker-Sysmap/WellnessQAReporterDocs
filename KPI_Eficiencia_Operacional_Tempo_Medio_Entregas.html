@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>KPI – Eficiência Operacional (Tempo Médio de Entregas)</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div id="sidebar"></div>
+    <script>
+      fetch("sidebar.html")
+        .then((r) => r.text())
+        .then((t) => (document.getElementById("sidebar").innerHTML = t));
+    </script>
+
+    <div id="content">
+      <h1>
+        KPI – Eficiência Operacional<br />
+        (Tempo Médio de Entregas)
+      </h1>
+
+      <div class="section-block">
+        <h2>1. Objetivo do KPI</h2>
+        <p>
+          Este KPI calcula o
+          <strong>tempo médio necessário para concluir uma entrega</strong>,
+          permitindo medir a eficiência do time de QA e o nível de maturidade do
+          processo.
+        </p>
+
+        <p>Ele indica principalmente:</p>
+        <ul>
+          <li>Velocidade do time para entregar ciclos completos</li>
+          <li>Agilidade no processo de testes</li>
+          <li>Impacto de gargalos, atrasos e re-trabalho</li>
+          <li>Previsibilidade das releases</li>
+        </ul>
+
+        <h2>2. Regras de Negócio</h2>
+
+        <h3>2.1 RN01 – O que é considerado uma “entrega”?</h3>
+        <p>A entrega pode representar:</p>
+
+        <ul>
+          <li>Conjunto completo do escopo de testes da release</li>
+          <li>Finalização de uma Sprint</li>
+          <li>Finalização de um Plano de Testes</li>
+          <li>Entrega de uma funcionalidade testada</li>
+        </ul>
+
+        <p>
+          O cliente deve definir qual modelo se aplica ao seu processo — o mais
+          comum é
+          <strong>tempo para concluir uma Release</strong>.
+        </p>
+
+        <h3>2.2 RN02 – Marco inicial da entrega</h3>
+        <p>O início do ciclo deve ser definido como:</p>
+        <ul>
+          <li><strong>Data de início da Release</strong> (mais comum)</li>
+          <li>Data de início do primeiro Test Plan</li>
+          <li>Data da primeira execução</li>
+        </ul>
+
+        <h3>2.3 RN03 – Marco final da entrega</h3>
+        <p>A entrega é considerada concluída quando:</p>
+        <ul>
+          <li>100% do escopo planejado foi executado</li>
+          <li>Todos os defeitos bloqueantes foram resolvidos</li>
+          <li>A Release foi marcada como “finalizada”</li>
+        </ul>
+
+        <h3>2.4 RN04 – Fórmula principal</h3>
+        <p>
+          <strong>
+            Tempo médio de entrega = (data_fim – data_início) por ciclo de
+            entrega
+          </strong>
+        </p>
+
+        <p>Na consolidação:</p>
+
+        <p>
+          <strong>
+            Tempo médio = soma dos tempos de entrega ÷ quantidade de entregas
+          </strong>
+        </p>
+
+        <h3>2.5 RN05 – Unidade de tempo</h3>
+        <ul>
+          <li><strong>Dias</strong> para Releases e Sprints</li>
+          <li>
+            <strong>Horas</strong> para grupos menores (ex.: planos de teste)
+          </li>
+        </ul>
+
+        <h2>3. Cálculo do KPI no WellnessQAReporter</h2>
+
+        <h3>3.1 Fonte dos dados</h3>
+        <ul>
+          <li><code>/release</code> – datas de início e fim da release</li>
+          <li><code>/plan</code> – datas dos planos (quando aplicável)</li>
+          <li><code>/run</code> – progresso real das execuções</li>
+          <li><code>/result</code> – métricas de execução e finalização</li>
+        </ul>
+
+        <h3>3.2 Algoritmo completo</h3>
+        <ol>
+          <li>Identificar cada ciclo de entrega concluído (ex.: releases).</li>
+          <li>Capturar data de início e data de finalização.</li>
+          <li>
+            Calcular o tempo de duração: <br /><br /><strong
+              >tempo = fim − início</strong
+            >
+          </li>
+          <li>Gerar o tempo médio somando todos os ciclos.</li>
+          <li>Classificar por mês, quarter ou release, conforme desejado.</li>
+        </ol>
+
+        <h3>3.3 Quando a entrega é considerada concluída</h3>
+        <p>
+          O Reporter considera uma delivery <strong>concluída</strong> quando:
+        </p>
+        <ul>
+          <li>Todos os Test Plans vinculados à release foram finalizados</li>
+          <li>Executado 100% do escopo planejado</li>
+          <li>Não há casos “em execução” pendentes</li>
+        </ul>
+
+        <h2>4. Configuração necessária no Qase</h2>
+
+        <h3>4.1 Releases bem definidas</h3>
+        <p>Cada release deve possuir:</p>
+        <ul>
+          <li>Data de início</li>
+          <li>Data de fim</li>
+          <li>Nome padronizado</li>
+        </ul>
+
+        <h3>4.2 Test Plans vinculados corretamente</h3>
+        <p>O cálculo só funciona se cada plano apontar para sua release.</p>
+
+        <h3>4.3 Fechamento formal da release</h3>
+        <p>
+          A equipe deve atualizar o status da release para “concluída” ao
+          finalizar todas as execuções.
+        </p>
+
+        <h3>4.4 Evitar prorrogações artificiais</h3>
+        <p>
+          Se a release não for encerrada oficialmente, o tempo fica inflado.
+        </p>
+
+        <h2>5. Riscos e pontos de atenção</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Risco</th>
+              <th>Impacto</th>
+              <th>Solução</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Release sem data de encerramento</td>
+              <td>Tempo calculado incorreto</td>
+              <td>Fechar release ao final do ciclo</td>
+            </tr>
+            <tr>
+              <td>Execuções espalhadas fora do ciclo</td>
+              <td>Distorção no tempo real de entrega</td>
+              <td>Manter governança de calendário</td>
+            </tr>
+            <tr>
+              <td>Desalinhamento entre times</td>
+              <td>Indicador perde confiabilidade</td>
+              <td>Padronizar workflow de entrega</td>
+            </tr>
+            <tr>
+              <td>Test Plans não vinculados</td>
+              <td>KPI não reflete realidade</td>
+              <td>Verificar associação obrigatória</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>6. Resumo executivo</h2>
+        <ul>
+          <li>
+            Mede quanto tempo o time leva para entregar um ciclo completo.
+          </li>
+          <li>Baseado em datas reais de início e conclusão das releases.</li>
+          <li>Ajuda a prever prazos e otimizar eficiência.</li>
+          <li>Exige boa governança no uso de releases e test plans.</li>
+          <li>É um indicador crítico para planejamento estratégico.</li>
+        </ul>
+      </div>
+
+      <p><a href="kpis.html">⬅ Voltar</a></p>
+    </div>
+  </body>
+</html>
