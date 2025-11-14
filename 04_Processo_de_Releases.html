@@ -31,9 +31,9 @@
         <p>Cada release segue um ciclo de 15 dias, contendo:</p>
         <ul>
           <li>preparação do escopo</li>
-          <li>revisão de suites e cases</li>
-          <li>criação dos plans</li>
-          <li>criação das runs</li>
+          <li>revisão de suites e test cases</li>
+          <li>criação dos test plans</li>
+          <li>criação das test runs</li>
           <li>execução completa</li>
           <li>registro de defeitos</li>
           <li>fechamento e validação final</li>
@@ -45,86 +45,110 @@
           execução:
         </p>
         <h3>2.1 Revisão das Suites</h3>
-        <p>• remover funcionalidades obsoletas</p>
-        <p>• atualizar passos e resultados esperados</p>
-        <p>• garantir que casos tenham tags de plataforma e idioma</p>
-        <p>2.2 Definição do Escopo</p>
-        <p>• validar com PO ou líder do QA o que será testado</p>
-        <p>• incluir novas funcionalidades</p>
-        <p>2.3 Criação do Plan</p>
-        <p>
-          • criar um Plan por plataforma ou um plan geral (dependendo do
-          projeto)
-        </p>
-        <p>• adicionar todas as suites relacionadas</p>
-        <p>Erro proibido:</p>
-        <p>❌ começar a executar testes sem o Plan criado</p>
-        <p>3. Durante a Release (Execução)</p>
+        <ul>
+          <li>remover funcionalidades obsoletas</li>
+          <li>atualizar passos e resultados esperados</li>
+          <li>garantir que casos tenham tags de plataforma e idioma</li>
+        </ul>
+        <h3>2.2 Definição do Escopo</h3>
+        <ul>
+          <li>validar com PO ou líder do QA o que será testado</li>
+          <li>incluir novas funcionalidades</li>
+        </ul>
+        <h3>2.3 Criação do Test Plan</h3>
+        <ul>
+          <li>
+            criar um Test Plan por plataforma ou um Test Plan geral (dependendo
+            do projeto)
+          </li>
+          <li>adicionar todas as suites relacionadas</li>
+        </ul>
+        <h3>Erro proibido:</h3>
+        <ul>
+          <li>❌ começar a executar testes sem o Test Plan criado</li>
+        </ul>
+        <h2>3. Durante a Release (Execução)</h2>
         <p>
           A execução deve seguir normas que garantem rastreabilidade e
           qualidade:
         </p>
-        <p>3.1 Criação das Runs</p>
-        <p>• criar run nova para iOS</p>
-        <p>• criar run nova para Android</p>
-        <p>• seguir padrão de nomenclatura</p>
-        <p>• nunca reaproveitar runs antigas</p>
-        <p>3.2 Execução dos Casos</p>
-        <p>• executar todos os casos</p>
-        <p>• seguir passos descritos nos cases</p>
-        <p>• registrar status (Passed/Failed/Blocked/Skipped)</p>
-        <p>• anexar evidências quando necessário</p>
-        <p>3.3 Registro de Defeitos</p>
-        <p>• abrir defeito para cada Failed</p>
-        <p>• vincular defeito ao resultado</p>
-        <p>• preencher descrição completa</p>
-        <p>3.4 Monitoramento Diário</p>
-        <p>• revisar progresso das runs</p>
-        <p>• garantir que não há casos pendentes</p>
-        <p>• validar se defeitos estão completos</p>
-        <p>4. Após a Release (Fechamento)</p>
+        <h3>3.1 Criação das Test Runs</h3>
+        <ul>
+          <li>criar test run nova para iOS</li>
+          <li>criar test run nova para Android</li>
+          <li>seguir padrão de nomenclatura</li>
+          <li>nunca reaproveitar test runs antigas</li>
+        </ul>
+        <h3>3.2 Execução dos Test Cases</h3>
+        <ul>
+          <li>executar todos os Test Cases</li>
+          <li>seguir passos descritos nos Test Cases</li>
+          <li>registrar status (Passed/Failed/Blocked/Skipped)</li>
+          <li>anexar evidências quando necessário</li>
+        </ul>
+        <h3>3.3 Registro de Defeitos</h3>
+        <ul>
+          <li>abrir defeito para cada Failed</li>
+          <li>vincular defeito ao resultado</li>
+          <li>preencher descrição completa</li>
+        </ul>
+        <h3>3.4 Monitoramento Diário</h3>
+        <ul>
+          <li>revisar progresso das runs</li>
+          <li>garantir que não há casos pendentes</li>
+          <li>validar se defeitos estão completos</li>
+        </ul>
+        <h2>4. Após a Release (Fechamento)</h2>
         <p>
           O fechamento garante que todos os dados necessários foram registrados.
         </p>
-        <p>Checklist obrigatório:</p>
-        <p>• Runs 100% completas</p>
-        <p>• Todos os casos com status</p>
-        <p>• Todos os Failed possuem defeito vinculado</p>
-        <p>• Blocked e Skipped possuem justificativa</p>
-        <p>• Severidades dos defeitos revisadas</p>
-        <p>• Duplicidades removidas</p>
-        <p>• Plan finalizado corretamente</p>
+        <h3>Checklist obrigatório:</h3>
+        <ul>
+          <li>Test Runs 100% completas</li>
+          <li>Todos os casos com status</li>
+          <li>Todos os Failed possuem defeito vinculado</li>
+          <li>Blocked e Skipped possuem justificativa</li>
+          <li>Severidades dos defeitos revisadas</li>
+          <li>Duplicidades removidas</li>
+          <li>Test Plan finalizado corretamente</li>
+        </ul>
         <p>Somente após este processo o Reporter deve ser executado.</p>
-        <p>5. Boas Práticas do Ciclo Quinzenal</p>
-        <p>• Criar o Plan no primeiro dia da release</p>
-        <p>• Criar as runs antes de começar a execução</p>
-        <p>• Registrar defeitos no mesmo dia da falha</p>
-        <p>• Atualizar suites quando funcionalidades mudarem</p>
-        <p>• Fazer revisões rápidas diárias das runs</p>
-        <p>• Validar status antes de encerrar a execução</p>
-        <p>6. Erros Comuns (e proibidos)</p>
+        <h2>5. Boas Práticas do Ciclo Quinzenal</h2>
+        <ul>
+          <li>Criar o Plan no primeiro dia da release</li>
+          <li>Criar as runs antes de começar a execução</li>
+          <li>Registrar defeitos no mesmo dia da falha</li>
+          <li>Atualizar suites quando funcionalidades mudarem</li>
+          <li>Fazer revisões rápidas diárias das runs</li>
+          <li>Validar status antes de encerrar a execução</li>
+        </ul>
+        <h2>6. Erros Comuns (e proibidos)</h2>
         <p>Esses erros prejudicam diretamente o Reporter:</p>
-        <p>❌ Executar sem revisar suites</p>
-        <p>❌ Esquecer de adicionar suites ao Plan</p>
-        <p>❌ Deixar casos sem status</p>
-        <p>❌ Executar sem registrar evidências</p>
-        <p>❌ Criar runs incompletas e abandoná-las</p>
-        <p>❌ Abrir defeitos sem vínculo</p>
-        <p>❌ Reaproveitar Plans ou Runs</p>
-        <p>7. Impacto no WellnessQAReporter</p>
+        <ul>
+          <li>❌ Executar sem revisar suites</li>
+          <li>❌ Esquecer de adicionar suites ao Test Plan</li>
+          <li>❌ Deixar casos sem status</li>
+          <li>❌ Executar sem registrar evidências</li>
+          <li>❌ Criar test runs incompletas e abandoná-las</li>
+          <li>❌ Abrir defeitos sem vínculo</li>
+          <li>❌ Reaproveitar Test Plans ou Test Runs</li>
+        </ul>
+        <h2>7. Impacto no WellnessQAReporter</h2>
         <p>O ciclo quinzenal impacta:</p>
-        <p>• KPIs de escopo</p>
-        <p>• KPIs de cobertura</p>
-        <p>• KPIs de execução</p>
-        <p>• KPIs de falhas</p>
-        <p>• Severidade dos defeitos</p>
-        <p>• Tendência de qualidade por release</p>
-        <p>• Comparação entre plataformas</p>
+        <ul>
+          <li>KPIs de escopo</li>
+          <li>KPIs de cobertura</li>
+          <li>KPIs de execução</li>
+          <li>KPIs de falhas</li>
+          <li>Severidade dos defeitos</li>
+          <li>Tendência de qualidade por release</li>
+          <li>Comparação entre plataformas</li>
+        </ul>
         <p>
           Se o processo for seguido corretamente, o Reporter entregará
           informações precisas e executivas.
         </p>
-        <p>Conclusão:</p>
+        <h2>Conclusão:</h2>
         <p>
           Seguir o processo quinzenal garante organização, previsibilidade e
           clareza.
