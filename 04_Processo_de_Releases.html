@@ -2,7 +2,7 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <title>Processo de Releases Quinzenais</title>
+    <title>Processo de Releases</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -12,152 +12,241 @@
         .then((r) => r.text())
         .then((t) => (document.getElementById("sidebar").innerHTML = t));
     </script>
+
     <div id="content">
-      <h1>Processo de Releases Quinzenais</h1>
+      <h1>Processo de Releases e Gestão de Ciclos de QA</h1>
+
       <div class="section-block">
         <p>
-          Esta página descreve o processo oficial das releases quinzenais e as
-          atividades obrigatórias no Qase para garantir que o WellnessQAReporter
-          consiga interpretar corretamente o ciclo, calcular KPIs e gerar
-          relatórios consistentes.
+          Esta página descreve o processo oficial de gestão de releases e as
+          atividades obrigatórias no Qase para garantir que os dados estejam
+          organizados, rastreáveis e compatíveis com a geração de relatórios e
+          indicadores do <b>WellnessQAReporter</b>.
         </p>
-        <h2>Objetivo:</h2>
+
+        <h2>Objetivo</h2>
         <p>
-          Padronizar o fluxo de trabalho das releases, eliminando divergências
-          entre equipes e garantindo que as execuções e os dados no Qase
-          reflitam exatamente o estado da qualidade do produto.
+          Padronizar o fluxo de trabalho de releases, garantindo consistência,
+          rastreabilidade e organização dos dados de QA, mesmo em projetos onde
+          uma release dura mais de uma sprint.
         </p>
-        <h2>1. Estrutura do Ciclo Quinzenal</h2>
-        <p>Cada release segue um ciclo de 15 dias, contendo:</p>
+
+        <h2>1. Estrutura do Ciclo</h2>
+        <p>
+          Diferentemente da sprint, que possui <b>duração fixa</b> (normalmente
+          15 dias), uma <b>release pode abranger uma ou mais sprints</b>,
+          dependendo do conteúdo planejado e das necessidades do produto.
+        </p>
+
+        <p>Cada release contém:</p>
         <ul>
           <li>preparação do escopo</li>
           <li>revisão de suites e test cases</li>
-          <li>criação dos test plans</li>
-          <li>criação das test runs</li>
-          <li>execução completa</li>
+          <li>criação dos Test Plans</li>
+          <li>criação das Test Runs</li>
+          <li>execução dos testes (podendo atravessar várias sprints)</li>
           <li>registro de defeitos</li>
-          <li>fechamento e validação final</li>
+          <li>fechamento da release e consolidação final</li>
         </ul>
-        <p>Cada etapa é essencial para a integridade dos dados.</p>
-        <h2>2. Antes da Release (Preparação)</h2>
+
+        <p>
+          O processo deve ser respeitado para garantir a consistência dos dados
+          entre releases e a confiabilidade dos KPIs históricos.
+        </p>
+
+        <h2>2. Identificação da Release (Nomenclatura Oficial)</h2>
+        <p>
+          Toda release deve possuir um identificador único, que será usado em:
+        </p>
+        <ul>
+          <li>nomes dos Test Plans</li>
+          <li>nomes das Test Runs</li>
+          <li>organização das pastas e históricos</li>
+          <li>arquivos de relatórios gerados</li>
+        </ul>
+
+        <p><b>Formato do identificador da release:</b></p>
+        <p><code>{VERSÃO}_{AMBIENTE}</code></p>
+
+        <p><b>Onde:</b></p>
+        <ul>
+          <li><code>VERSÃO</code> = 3.2.0</li>
+          <li><code>AMBIENTE</code> = DEV</li>
+        </ul>
+        <p>
+          O identificador da release será criado automaticamente pelo Reporter a
+          partir dos identificadores dos Test Plans
+        </p>
+
+        <h3>Exemplos:</h3>
+        <ul>
+          <li>3.2.1_STAGE</li>
+          <li>3.1.0_DEV</li>
+        </ul>
+
+        <h2>3. Antes da Release (Preparação)</h2>
         <p>
           As seguintes ações devem ser concluídas antes do início oficial da
           execução:
         </p>
-        <h3>2.1 Revisão das Suites</h3>
+
+        <h3>3.1 Revisão das Suites</h3>
         <ul>
           <li>remover funcionalidades obsoletas</li>
-          <li>atualizar passos e resultados esperados</li>
-          <li>garantir que casos tenham tags de plataforma e idioma</li>
+          <li>atualizar passos</li>
+          <li>garantir tags de plataforma e idioma, quando aplicável</li>
         </ul>
-        <h3>2.2 Definição do Escopo</h3>
+
+        <h3>3.2 Definição do Escopo</h3>
         <ul>
-          <li>validar com PO ou líder do QA o que será testado</li>
-          <li>incluir novas funcionalidades</li>
+          <li>validar escopo com PO/líder de QA</li>
+          <li>incluir funcionalidades da release</li>
         </ul>
-        <h3>2.3 Criação do Test Plan</h3>
+
+        <h3>3.3 Criação do Test Plan</h3>
         <ul>
-          <li>
-            criar um Test Plan por plataforma ou um Test Plan geral (dependendo
-            do projeto)
-          </li>
+          <li>criar Test Plan seguindo o identificador oficial</li>
           <li>adicionar todas as suites relacionadas</li>
         </ul>
-        <h3>Erro proibido:</h3>
-        <ul>
-          <li>❌ começar a executar testes sem o Test Plan criado</li>
-        </ul>
-        <h2>3. Durante a Release (Execução)</h2>
+
+        <h2>4. Durante a Release</h2>
         <p>
-          A execução deve seguir normas que garantem rastreabilidade e
-          qualidade:
+          A execução pode atravessar várias sprints. O importante é manter
+          rastreabilidade e disciplina.
         </p>
-        <h3>3.1 Criação das Test Runs</h3>
+
+        <h3>4.1 Criação das Test Runs</h3>
         <ul>
-          <li>criar test run nova para iOS</li>
-          <li>criar test run nova para Android</li>
-          <li>seguir padrão de nomenclatura</li>
-          <li>nunca reaproveitar test runs antigas</li>
+          <li>
+            criar Test Run nova por plataforma, vinculada ao Test Plan da
+            release
+          </li>
+          <li>nunca reaproveitar Test Runs antigas</li>
         </ul>
-        <h3>3.2 Execução dos Test Cases</h3>
+
+        <h3>4.2 Execução dos Test Cases</h3>
         <ul>
-          <li>executar todos os Test Cases</li>
-          <li>seguir passos descritos nos Test Cases</li>
-          <li>registrar status (Passed/Failed/Blocked/Skipped)</li>
+          <li>seguir os passos descritos</li>
+          <li>registrar status corretamente</li>
           <li>anexar evidências quando necessário</li>
         </ul>
-        <h3>3.3 Registro de Defeitos</h3>
+
+        <h3>4.3 Registro de Defeitos</h3>
         <ul>
-          <li>abrir defeito para cada Failed</li>
-          <li>vincular defeito ao resultado</li>
-          <li>preencher descrição completa</li>
+          <li>abrir defeito para cada caso Failed</li>
+          <li>vincular ao resultado da execução</li>
         </ul>
-        <h3>3.4 Monitoramento Diário</h3>
+
+        <h3>4.4 Monitoramento Contínuo</h3>
         <ul>
-          <li>revisar progresso das runs</li>
-          <li>garantir que não há casos pendentes</li>
-          <li>validar se defeitos estão completos</li>
+          <li>acompanhar progresso diariamente</li>
+          <li>revisar status pendentes</li>
         </ul>
-        <h2>4. Após a Release (Fechamento)</h2>
+
+        <h2>5. Fechamento da Release: REGRA CRÍTICA</h2>
+
+        <p>Uma release só pode ser <b>fechada</b> quando:</p>
+        <ul>
+          <li>todas as Test Runs estiverem 100% concluídas</li>
+          <li>todos os casos com status registrado</li>
+          <li>todos os Failed tiverem defeito vinculado</li>
+          <li>Severidades e duplicidades revisadas</li>
+          <li>não houver mais execuções pendentes</li>
+        </ul>
+
+        <h3>Após o fechamento:</h3>
+        <ul>
+          <li>
+            ✔ a release se torna <b>imutável</b> no histórico interno do
+            WellnessQAReporter
+          </li>
+          <li>
+            ✔ qualquer mudança posterior no Qase <b>não será refletida</b>
+          </li>
+          <li>✔ o snapshot da release é congelado permanentemente</li>
+        </ul>
+
+        <h2>6. Transição para a Próxima Release – NOVA REGRA</h2>
+
         <p>
-          O fechamento garante que todos os dados necessários foram registrados.
+          A equipe deve seguir as regras abaixo para evitar inconsistências:
         </p>
-        <h3>Checklist obrigatório:</h3>
+
+        <h3>
+          6.1 A nova release só pode ser iniciada quando a anterior for fechada
+        </h3>
         <ul>
-          <li>Test Runs 100% completas</li>
-          <li>Todos os casos com status</li>
-          <li>Todos os Failed possuem defeito vinculado</li>
-          <li>Blocked e Skipped possuem justificativa</li>
-          <li>Severidades dos defeitos revisadas</li>
-          <li>Duplicidades removidas</li>
-          <li>Test Plan finalizado corretamente</li>
+          <li>isso evita mistura de dados entre releases</li>
+          <li>garante que KPIs não sejam reprocessados indevidamente</li>
         </ul>
-        <p>Somente após este processo o Reporter deve ser executado.</p>
-        <h2>5. Boas Práticas do Ciclo Quinzenal</h2>
+
+        <h3>6.2 Enquanto uma release estiver aberta</h3>
         <ul>
-          <li>Criar o Plan no primeiro dia da release</li>
-          <li>Criar as runs antes de começar a execução</li>
-          <li>Registrar defeitos no mesmo dia da falha</li>
-          <li>Atualizar suites quando funcionalidades mudarem</li>
-          <li>Fazer revisões rápidas diárias das runs</li>
-          <li>Validar status antes de encerrar a execução</li>
+          <li>casos podem ser atualizados</li>
+          <li>execuções podem ser refeitas</li>
+          <li>tipos manual/automated podem mudar</li>
+          <li>testes podem ser adicionados ou ajustados</li>
         </ul>
-        <h2>6. Erros Comuns (e proibidos)</h2>
-        <p>Esses erros prejudicam diretamente o Reporter:</p>
+
+        <h3>6.3 Após fechar a release</h3>
         <ul>
-          <li>❌ Executar sem revisar suites</li>
-          <li>❌ Esquecer de adicionar suites ao Test Plan</li>
-          <li>❌ Deixar casos sem status</li>
-          <li>❌ Executar sem registrar evidências</li>
-          <li>❌ Criar test runs incompletas e abandoná-las</li>
-          <li>❌ Abrir defeitos sem vínculo</li>
-          <li>❌ Reaproveitar Test Plans ou Test Runs</li>
+          <li>nenhuma alteração deve ser feita nos dados</li>
+          <li>toda modificação passa a impactar somente a próxima release</li>
         </ul>
-        <h2>7. Impacto no WellnessQAReporter</h2>
-        <p>O ciclo quinzenal impacta:</p>
+
+        <h3>6.4 O WellnessQAReporter aplica automaticamente:</h3>
         <ul>
-          <li>KPIs de escopo</li>
-          <li>KPIs de cobertura</li>
-          <li>KPIs de execução</li>
-          <li>KPIs de falhas</li>
-          <li>Severidade dos defeitos</li>
-          <li>Tendência de qualidade por release</li>
-          <li>Comparação entre plataformas</li>
+          <li>
+            ❗ congelamento de releases antigas (não podem ser reprocessadas)
+          </li>
+          <li>❗ atualização permitida somente para a release mais recente</li>
+          <li>
+            ❗ rejeição silenciosa de tentativas de atualização de releases
+            anteriores
+          </li>
         </ul>
+
         <p>
-          Se o processo for seguido corretamente, o Reporter entregará
-          informações precisas e executivas.
+          Isso garante que dados críticos como
+          <b>cobertura manual x automatizada</b>
+          — que não possuem histórico no Qase — sejam preservados corretamente.
         </p>
-        <h2>Conclusão:</h2>
+
+        <h2>7. Boas Práticas</h2>
+        <ul>
+          <li>Criar Test Plans no início da release.</li>
+          <li>Criar Test Runs antes de iniciar a execução.</li>
+          <li>Realizar revisões frequentes nas Test Runs.</li>
+          <li>Registrar defeitos no mesmo dia da execução.</li>
+          <li>Respeitar o identificador oficial da release.</li>
+          <li>Comunicar explicitamente o fechamento da release.</li>
+        </ul>
+
+        <h2>8. Impacto na Organização e Relatórios</h2>
+        <p>O processo de releases e seu fechamento adequado garantem:</p>
+        <ul>
+          <li>KPIs consistentes por release</li>
+          <li>comparação histórica confiável</li>
+          <li>cobertura planejada x executada por plataforma</li>
+          <li>
+            cálculo correto de cobertura manual/automatizada mesmo após mudanças
+            no Qase
+          </li>
+          <li>
+            preservação de snapshots históricos independentemente de alterações
+            posteriores
+          </li>
+        </ul>
+
+        <h2>Conclusão</h2>
         <p>
-          Seguir o processo quinzenal garante organização, previsibilidade e
-          clareza.
-        </p>
-        <p>
-          É o pilar fundamental para que o WellnessQAReporter gere relatórios
-          confiáveis e úteis para as áreas de QA, PO e gestão.
+          O processo atualizado garante que releases possam durar múltiplas
+          sprints sem comprometer rastreabilidade e consistência. Seguir este
+          fluxo é essencial para que o WellnessQAReporter gere indicadores
+          confiáveis e úteis para tomada de decisão.
         </p>
       </div>
+
       <p><a href="index.html">⬅ Voltar ao índice</a></p>
     </div>
   </body>

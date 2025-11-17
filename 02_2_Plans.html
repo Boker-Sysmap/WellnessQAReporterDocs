@@ -5,6 +5,7 @@
     <title>Test Plans</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
+
   <body>
     <div id="sidebar"></div>
     <script>
@@ -12,119 +13,155 @@
         .then((r) => r.text())
         .then((t) => (document.getElementById("sidebar").innerHTML = t));
     </script>
+
     <div id="content">
       <h1>Test Plans</h1>
+
       <div class="section-block">
         <p>
-          Esta página define como os Test Plans (Planos de Teste) devem ser
-          criados e estruturados no Qase para que o WellnessQAReporter consiga
-          identificar corretamente o escopo planejado e os KPIs de cada release
-          quinzenal.
+          Esta página define como os Test Plans e Test Runs devem ser criados no
+          Qase, seguindo regras obrigatórias de nomenclatura e organização.
+          Essas regras garantem rastreabilidade, organização e consistência
+          entre projetos, versões e plataformas.
         </p>
-        <h2>Objetivo:</h2>
+
+        <h2>Objetivo</h2>
         <p>
-          Padronizar completamente a criação de Test Plans, garantindo que cada
-          ciclo de release seja representado de forma correta, completa e
-          consistente.
+          Garantir que todo Test Run seja baseado em um Test Plan, e que ambos
+          sigam a nomenclatura padronizada definida oficialmente para o projeto.
         </p>
+
+        <!-- ------------------------------------------------------------- -->
+        <!-- 1. O que é um Test Plan -->
+        <!-- ------------------------------------------------------------- -->
+
         <h2>1. O que é um Test Plan?</h2>
         <p>
-          O Test Plan é o artefato do Qase que define o escopo planejado da
-          release.
+          O Test Plan define o <b>escopo planejado de testes</b> para uma versão
+          específica do produto. Ele contém todas as suites (funcionalidades) e
+          deve ser criado antes de qualquer execução.
         </p>
-        <p>
-          Ele contém as suites (funcionalidades) que serão testadas durante o
-          ciclo e serve como base para todas as execuções (runs).
-        </p>
-        <h3>Por que isso é importante?</h3>
+
+        <h3>Por que isso é obrigatório?</h3>
         <ul>
+          <li>O Test Plan é a única fonte que define o escopo planejado.</li>
           <li>
-            O Reporter usa o Test Plan para calcular KPIs de escopo e cobertura.
+            Sem Test Plan, <b>não é possível calcular KPIs críticos</b>, como
+            Escopo Planejado.
           </li>
-          <li>O Test Plan representa o que deveria ser testado na release.</li>
-          <li>Sem Test Plan, não há como medir percentual de execução.</li>
+          <li>Permite rastrear exatamente o que deveria ter sido testado.</li>
         </ul>
-        <h2>2. Frequência dos Test Plans</h2>
+
+        <!-- ------------------------------------------------------------- -->
+        <!-- 2. Regras obrigatórias -->
+        <!-- ------------------------------------------------------------- -->
+
+        <h2>2. Regras Obrigatórias</h2>
+
+        <h3>2.1 Não é permitido criar Test Run sem Test Plan</h3>
         <p>
-          É obrigatório criar um Test Plan para <b>cada release quinzenal</b>,
-          sem exceções.
+          Todo Test Run
+          <b>deve obrigatoriamente ser criado a partir de um Test Plan</b>.
         </p>
-        <p>Nunca reutilize um Test Plan antigo.</p>
-        <p>Cada ciclo deve ter seu próprio artefato, pois:</p>
-        <ul>
-          <li>o escopo muda</li>
-          <li>funcionalidades entram e saem</li>
-          <li>regressões precisam ser revistas</li>
-          <li>o Reporter identifica KPIs por release</li>
-        </ul>
-        <h2>3. Nomenclatura Oficial</h2>
-        <p>A nomeação deve seguir o padrão:</p>
-        <p><i>Release YYYY-MM – Plataforma</i></p>
-        <h3>Exemplos:</h3>
-        <ul>
-          <li>• Release 2025-03 – iOS</li>
-          <li>• Release 2025-03 – Android</li>
-        </ul>
+
+        <h3>2.2 Não é permitido reaproveitar Test Plans antigos</h3>
         <p>
-          Para projetos que utilizam o mesmo escopo nas duas plataformas,
-          pode-se usar:
+          Cada Test Run deve possuir um Test Plan próprio, com o mesmo nome
+          (identificador).
         </p>
-        <ul>
-          <li>Release 2025-03 – Geral</li>
-        </ul>
-        <h2>4. Conteúdo Obrigatório de um Test Plan</h2>
-        <p>Ao criar um test plan, ele deve conter:</p>
-        <ul>
-          <li>Todas as suites relacionadas à release.</li>
-          <li>Suites revisadas e atualizadas.</li>
-          <li>Funcionalidades novas adicionadas.</li>
-          <li>Funcionalidades removidas do ciclo quando necessário.</li>
-          <li>Descrição do objetivo da release (opcional, mas recomendado).</li>
-        </ul>
-        <h3>Por que isso importa?</h3>
-        <p>O WellnessQAReporter lê diretamente os Test Plans para:</p>
-        <ul>
-          <li>identificar o escopo total da release</li>
-          <li>calcular cobertura planejada x executada</li>
-        </ul>
-        <h2>5. Revisão Antes da Execução</h2>
+        <p><b>Permitido:</b> clonar modelos ou Test Plans anteriores.</p>
         <p>
-          Antes de iniciar qualquer execução, o QA responsável deve confirmar
-          que:
+          <b>Proibido:</b> reaproveitar diretamente um Test Plan já usado em
+          outra execução.
         </p>
-        <ul>
-          <li>Todas as suites foram incluídas.</li>
-          <li>Não há suites obsoletas.</li>
-          <li>Não há duplicidade de suites.</li>
-          <li>Casos desatualizados foram revisados.</li>
-        </ul>
-        <h2>6. Erros Comuns (e proibidos)</h2>
-        <p>Os erros abaixo prejudicam gravemente os KPIs:</p>
-        <ul>
-          <li>❌ Test Plan reaproveitado de release anterior</li>
-          <li>❌ Suites faltando</li>
-          <li>❌ Suites duplicadas</li>
-          <li>❌ Test Plans vazios</li>
-          <li>❌ Test Plans criados após a execução já ter começado</li>
-          <li>❌ Test Plans com nome informal (ex.: “Regressão Março”)</li>
-        </ul>
-        <h2>7. Boas Práticas</h2>
-        <ul>
-          <li>Criar o Test Plan no início do ciclo de release.</li>
-          <li>Validar escopo com o PO ou líder de QA.</li>
-          <li>Arquivar Test Plans antigos para manter organização.</li>
-          <li>Criar templates de Test Plans, se necessário.</li>
-        </ul>
-        <h2>Conclusão:</h2>
+
+        <h3>2.3 Test Plan e Test Run devem ter o mesmo identificador</h3>
         <p>
-          Test Plans bem estruturados são essenciais para medir o escopo da
-          release e garantir que o WellnessQAReporter calcule corretamente a
-          cobertura, execução e qualidade do ciclo.
+          O nome (identificador) deve ser idêntico entre o Test Plan e o Test
+          Run que o utiliza.
         </p>
+
+        <!-- ------------------------------------------------------------- -->
+        <!-- 3. Novo padrão oficial de identificador -->
+        <!-- ------------------------------------------------------------- -->
+
+        <h2>3. Padrão Oficial de Identificador</h2>
+
+        <p>O identificador deve seguir exatamente este formato:</p>
+
         <p>
-          Seguir esse padrão é obrigatório para garantir dados consistentes.
+          <b
+            >${version}_${environment}_${platform}_${language}_${testType}_${date}</b
+          >
+        </p>
+
+        <h3>Onde:</h3>
+        <ul>
+          <li><b>version</b> — sempre no formato X.Y.Z (ex.: 3.2.1)</li>
+          <li><b>environment</b> — PROD, STAGE, DEV</li>
+          <li><b>platform</b> — ANDROID, IOS</li>
+          <li><b>language</b> — PT, EN, ES</li>
+
+          <li>
+            <b>testType</b> — FUNCIONAL, MANUAL, REGRESSÃO, AUTOMATIZADO etc.
+          </li>
+          <li><b>date</b> — data da execução no formato AAAAMMDD</li>
+          <li>Usar somente caracteres MAIÚSCULOS.</li>
+        </ul>
+
+        <h3>Exemplos válidos:</h3>
+        <p>1.2.3_PROD_IOS_PT_[FUNCIONAL_MANUAL]_20251117</p>
+        <p>1.2.3_PROD_IOS_EN_MANUAL_20251011</p>
+
+        <h3>3.1 Campos com caracteres especiais</h3>
+        <p>
+          Qualquer campo que contenha espaços, acentos, hífens, barras ou
+          underscores deve obrigatoriamente estar entre colchetes:
+        </p>
+
+        <p>1.2.3_prod_IOS_PT_<b>[FUNCIONAL_MANUAL]</b>_20251117</p>
+
+        <p>Exemplos de campos que exigem colchetes:</p>
+
+        <ul>
+          <li>funcional manual → <b>[FUNCIONAL MANUAL]</b></li>
+          <li>regressão completa → <b>[REGRESSÃO COMPLETA]</b></li>
+          <li>mobile_ios → <b>[MOBILE_IOS]</b></li>
+        </ul>
+
+        <!-- ------------------------------------------------------------- -->
+        <!-- 4. Conteúdo obrigatório do Test Plan -->
+        <!-- ------------------------------------------------------------- -->
+
+        <h2>4. Conteúdo obrigatório de um Test Plan</h2>
+        <ul>
+          <li>Todas as suites da versão</li>
+          <li>Funcionalidades novas incluídas</li>
+          <li>Funcionalidades removidas quando necessário</li>
+          <li>Test cases revisados antes da execução</li>
+        </ul>
+
+        <!-- ------------------------------------------------------------- -->
+        <!-- 5. Erros comuns -->
+        <!-- ------------------------------------------------------------- -->
+
+        <h2>5. Erros Comuns (e proibidos)</h2>
+        <ul>
+          <li>❌ Criar Test Run sem Test Plan</li>
+          <li>❌ Reaproveitar Test Plans antigos</li>
+          <li>❌ Usar nomes de identificador fora do padrão</li>
+          <li>❌ Esquecer a data AAAAMMDD</li>
+          <li>❌ Criar Test Plan após iniciar execução</li>
+        </ul>
+
+        <h2>6. Conclusão</h2>
+        <p>
+          A aplicação rigorosa deste padrão é essencial para manter organização
+          no Qase, gerar KPIs corretos e permitir que o WellnessQAReporter
+          interprete os dados de forma consistente.
         </p>
       </div>
+
       <p><a href="index.html">⬅ Voltar ao índice</a></p>
     </div>
   </body>
